@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
+title: ShanCW
+subtitle: '记录成长，记录时间'
 description: ''
-keywords:
-author: John Doe
-language: en
+keywords: [前端]
+author: ShanCW
+language: zh-CN
 timezone: ''
 
 # URL
