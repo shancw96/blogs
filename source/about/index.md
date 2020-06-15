@@ -1,5 +1,5 @@
 ---
 layout: single-column
-commens: false
+comments: false
 ---
 # About

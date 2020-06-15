@@ -1,5 +1,5 @@
 ---
 layout: tagcloud
-commens: false
+comments: false
 ---
 标签页
