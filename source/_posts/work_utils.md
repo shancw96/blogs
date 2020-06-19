@@ -21,9 +21,6 @@ date: 2020/6/19
 ## svgStr -> svgEl
 
 ```js
-const svgEl = document.createElement("div");
-svgEl.innerHTML = svgStr;
-return svgContainer.firstElementChild;
 ```
 
 ## svgEl -> base64
@@ -34,7 +31,9 @@ return svgContainer.firstElementChild;
  * @param {Element} svgEl
  */
 const svg2Base64 = (svgEl) => {
-  const s = new XMLSerializer().serializeToString(svgEl);
+  const svgEl = document.createElement("div");
+  svgEl.innerHTML = svgStr;
+  const s = new XMLSerializer().serializeToString(svgEl.firstElementChild);
   return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(s)))}`;
 };
 ```
@@ -42,4 +41,29 @@ const svg2Base64 = (svgEl) => {
 ## base64 -> image
 
 ```js
+const base64ToImageEl = (base64Str) => {
+  const image = new window.Image();
+  image.src = base64Str;
+  image.onload = () => {
+    // image -> konva Image
+  };
+};
+```
+
+## konva Image download (Vue)
+
+```js
+function handleImageDownload() {
+  const stage = _getNodeRef("stage");
+  const dataURL = stage.toDataURL({ pixelRatio: 3 });
+  downloadURI(dataURL, "stage.png");
+}
+function downloadURI(uri, name) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 ```
