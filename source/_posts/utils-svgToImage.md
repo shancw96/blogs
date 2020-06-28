@@ -1,7 +1,7 @@
 ---
-title: konva To Image
-categories: [konva, "开发"]
-tags: [utils]
+title: svgStr To Image (based on konva)
+categories: ["utils"]
+tags:
 toc: true
 date: 2020/6/19
 ---

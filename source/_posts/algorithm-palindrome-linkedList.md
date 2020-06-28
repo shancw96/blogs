@@ -6,7 +6,9 @@ toc: true
 date: 2020/6/18
 ---
 
-# 请判断一个链表是否为回文链表,要求为**时间复杂度 O(n) 空间复杂度 O(1)**
+# 请判断一个链表是否为回文链表
+
+> 要求为时间复杂度 O(n) 空间复杂度 O(1)
 
 [关联 leetcode234](https://leetcode-cn.com/problems/palindrome-linked-list/)
 例子 1:
