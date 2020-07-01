@@ -21,14 +21,16 @@ date: 2020/6/24
 - `Number.MAX_VALUE`: js 中的最大值
 - `Number.MIN_VALUE`: js 中的最小值
 - `Number.MAX_SAFE_INTERGER`:最大安全整数 2^53 - 1
-- `Number.MIN_SAFE_INTERGER`:最小安全整数
+- `Number.MIN_SAFE_INTERGER`:最小安全整数 -2^53 - 1
 
 * `Number.POSITIVE_INFINITY:` 对应 Infinity 代表正无穷
-* `Number.EPSILON`：是一个极小的值，用于检测计算结果是否在误差范围内
+* `Number.EPSILON`：是一个极小的值，用于检测带小数的数值计算结果是否在误差范围内
 * `Number.NaN`：表示非数字，NaN 与任何值都不相等，包括 NaN 本身
 * `Infinity`：表示无穷大，分 正无穷 Infinity 和 负无穷 -Infinity
 
 ## 为什么 0.1 + 0.2 !== 0.3 ? 在开发中要怎么去解决
+
+> (十进制的 0.1 为什么不能用二进制很好的表示？)[https://www.cnblogs.com/fandong90/p/5397260.html#undefined]
 
 JavaScript 的 Number 类型为双精度 IEEE 754 64 位浮点类型。
 对于 0.1 + 0.2 的计算结果：首先将 0.1, 0.2 分别转换成 2 进制，在进行相加，将得到的二进制结果转成 10 进制
@@ -42,11 +44,6 @@ function floatJudge(num1, num2, target) {
   return Math.abs(num1 - num2) - target < Math.EPSILON;
 }
 ```
-
-## Number 的范围
-
-整数类型范围: -2^53 - 2^53
-数字类型范围: 5e-324 - 1.7976931348623157e+308 （可以通过 `Number.MIN_VALUE Number.MAX_VALUE` 获取）
 
 # 装箱转换 （基本类型 -> 对应的对象)
 
@@ -90,7 +87,7 @@ String(o);
 // TypeofError
 ```
 
-ES6 可以显式指定 `toPrimitive Symbol` 来覆盖原有行为
+ES6 可以显式指定 `toPrimitive Symbol` 来覆盖原有的**拆箱**行为
 
 ```js
 const o = {

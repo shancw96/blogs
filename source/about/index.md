@@ -1,6 +1,6 @@
 ---
 layout: single-column
-comments: false
+comments: true
 ---
 
 ## 职位：
