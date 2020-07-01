@@ -79,6 +79,7 @@ function reverseList_recursion(head, newHead = null) {
 - 通过额外空间存储 Set / Map
 
 快慢指针
+时间复杂度：O(n/2),空间复杂度：O(1)
 
 ```js
 function isCircle_point(head) {
@@ -94,6 +95,7 @@ function isCircle_point(head) {
 ```
 
 额外空间(set 方法)
+时间复杂度：O(n),空间复杂度：O(n)
 
 ```js
 function isCircle_set(head) {
@@ -111,6 +113,8 @@ function isCircle_set(head) {
 
 ### 获取入口
 
+时间复杂度：快慢指针 O(n/2) + 遍历 O(n)
+空间复杂度：O(1)
 分析:
 
 - 设慢指针的路径为 s ，那么快指针路径为 2s
@@ -138,7 +142,6 @@ function circle_entry(head) {
     let fast = head.next;
     while (fast && fast.next) {
       if (slow === fast) {
-        console.log(fast);
         return fast;
       }
       slow = slow.next;
@@ -160,10 +163,14 @@ function circle_entry(head) {
 
 ## 两个有序链表的合并
 
+### 原地修改
+
+### 额外 O(n+m)空间
+
 关联 leetcode [21](https://leetcode-cn.com/problems/merge-two-sorted-lists/) [23](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 
 ## 删除链表中倒数第 n 个节点
 
-关联 leetcode [19](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+> 倒数第几个：快指针比慢指针快了几次 -> 让快指针优先行动 n 次,再遍历直到快指针到结束，此时的慢指针就是要删除的位置
 
-## 求链表的中间节点
+关联 leetcode [19](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
