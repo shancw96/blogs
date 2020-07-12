@@ -1,7 +1,7 @@
 ---
 title: 重学前端-js-对象
 categories: [js]
-tags: [js对象]
+tags: [js类型]
 toc: true
 date: 2020/6/30
 ---
