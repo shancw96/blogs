@@ -37,12 +37,42 @@ JavaScript 的 Number 类型为双精度 IEEE 754 64 位浮点类型。
 
 > 由于 **0.1 转换成 2 进制会出现无限循环**，但是尾数最多只能保存 53 位，所以只能近似值，此处就产生了误差。
 
-比较浮点数的正确方式:
+### 比较浮点数的正确方式:
 
 ```js
 function floatJudge(num1, num2, target) {
   return Math.abs(num1 - num2) - target < Math.EPSILON;
 }
+```
+
+### 浮点数计算
+
+[number-precision 小数计算辅助库](https://github.com/nefe/number-precision)
+对于运算类操作，如 +-\*/，就不能使用 toPrecision 了。正确的做法是把小数转成整数后再运算。以加法为例：
+原理：
+
+```js
+/**
+ * 精确加法
+ */
+function add(num1, num2) {
+  const num1Digits = (num1.toString().split(".")[1] || "").length;
+  const num2Digits = (num2.toString().split(".")[1] || "").length;
+  const baseNum = Math.pow(10, Math.max(num1Digits, num2Digits)); // 10 * 小数位数
+  return (num1 * baseNum + num2 * baseNum) / baseNum;
+}
+```
+
+### 浮点数展示
+
+Number.prototype.toPrecision 方法可以对精度进行限制，而不会四舍五入
+
+```js
+(1.3333333).toPrecision(1); // -> "1"
+(1.3333333).toPrecision(2); // -> "1.3"
+
+// 如果某些组件需要数字类型,则加上parseFloat
+parseFloat((1.4000000000000001).toPrecision(12)) === 1.4; // True
 ```
 
 # 装箱转换 （基本类型 -> 对应的对象)
@@ -55,6 +85,10 @@ function floatJudge(num1, num2, target) {
 const arr = [];
 Object.prototype.toString.call(type_data); // [Object Array]
 ```
+
+## 为什么 Array String Number Boolean RegExp Date 不能直接调用 toString ? `xxx.toString`
+
+上述几种对象对 toString 进行了重写，由于自身原型链上存在 toString 就不会继续向上查找 toString,所以达不到预期效果
 
 在 JavaScript 中，没有任何方法可以更改私有的 Class 属性，因此 Object.prototype.toString 是可以准确识别对象对应的基本类型的方法，它比 instanceof 更加准确。
 
