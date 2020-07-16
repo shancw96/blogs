@@ -1,5 +1,5 @@
 ---
-title: 重学前端-js-对象
+title: js-对象分类
 categories: [js]
 tags: [js类型]
 toc: true
