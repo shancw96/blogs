@@ -6,7 +6,7 @@ toc: true
 date: 2020/7/3
 ---
 
-# 删除分支命令
+# bash + git branch 删除本地垃圾分支
 
 删除一条分支：
 
@@ -54,4 +54,14 @@ xargs 是实现“将标准输入作为命令的参数"
 git branch | grep 'bugFix' | xargs git branch -d
 ```
 
-## 
+# cheery-pick: 选择某一个 commit merge 到当前分支
+
+1. `git log` 或 `sourcetree 工具`查看一下你想选择哪些 commits 进行合并 如 82ecb31
+2. `git cherry-pick 82ecb31`
+
+# reset 撤销提交的代码
+
+```js
+git reset --hard head^ 不保留代码，恢复成上一个 commit 版本代码
+git reset --soft head^ 保留代码，恢复成上一个 commit
+```
