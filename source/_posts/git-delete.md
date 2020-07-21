@@ -1,14 +1,12 @@
 ---
-title: git 批量删除本地分支
+title: git 操作
 categories: [版本控制]
 tags: [git]
 toc: true
 date: 2020/7/3
 ---
 
-# 解决方案
-
-## 删除分支命令
+# 删除分支命令
 
 删除一条分支：
 
@@ -55,3 +53,5 @@ xargs 是实现“将标准输入作为命令的参数"
 ```bash
 git branch | grep 'bugFix' | xargs git branch -d
 ```
+
+## 

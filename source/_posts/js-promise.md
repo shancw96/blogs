@@ -1,7 +1,7 @@
 ---
 title: JS-异步函数-Promise 实现
 categories: [js]
-tags: [异步, promise]
+tags: [异步]
 toc: true
 date: 2020/7/2
 ---

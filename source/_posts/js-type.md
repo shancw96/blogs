@@ -1,5 +1,5 @@
 ---
-title: 重学前端-js-类型
+title: js-类型
 categories: [js]
 tags: [js类型]
 toc: true
