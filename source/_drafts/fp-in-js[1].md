@@ -1,5 +1,5 @@
 ---
-title: fp-in-js what is fp
+title: fp-in-js
 categories: [Functional Programming]
 tags: []
 toc: true
@@ -70,7 +70,9 @@ var average = totalGrades / totalStudentsFound; //-> 90
 ```
 
 ## fp
+
 ### version1 简单组合
+
 ```js
 fun() {
   const calcNumAvg = ({sum, size}) => sum / size;
@@ -83,11 +85,19 @@ fun() {
 }
 
 ```
-### 使用combinator-join
+
+### 使用 combinator-join
+
 ```js
-const calc_avg = _.join((len, sum) => sum / avg, calc_size, arr => arr.reduce((total, item) => (total += _.get(item, "grade")), 0), arr => arr.length)
-const ans = calc_avg([1,1,2,1,23,12,3,123,1,23,12,3]);
+const calc_avg = _.join(
+  (len, sum) => sum / avg,
+  calc_size,
+  (arr) => arr.reduce((total, item) => (total += _.get(item, "grade")), 0),
+  (arr) => arr.length
+);
+const ans = calc_avg([1, 1, 2, 1, 23, 12, 3, 123, 1, 23, 12, 3]);
 ```
+
 个人理解的最佳模型：
 
 ```js
@@ -99,3 +109,71 @@ const result = finalFn(input);
 
 ```
 
+# FP 错误处理 null - checking
+
+当连续一系列查询发生的时候，怎么处理查询失败情况
+
+## imperative way
+
+```js
+function getCountry(student) {
+  let school = student.getSchool();
+  if (school !== null) {
+    let addr = school.getAddress();
+    if (addr !== null) {
+      let country = addr.getCountry();
+      return country;
+    }
+  }
+  throw new Error("Error extracting country info");
+}
+```
+
+## FP
+
+### Functor
+
+#### wrapper( wrap :: A -> Wrapper(A))
+
+```js
+class Wrapper {
+  constructor(value) {
+    this._value = value;
+  }
+  //map :: (A -> B) -> A -> B
+  map(f) {
+    return f(this._value);
+  }
+  toString() {
+    return `Wrapper(${this.value})`;
+  }
+}
+// wrap  :: A -> Wrapper(A)
+const wrap = (val) => new Wrapper(val);
+```
+
+#### fmap ( fmap :: (A -> B) -> Wrapper[A] -> Wraper[B] )
+
+```js
+Wrapper.prototype.fmap = function (f) {
+  return wrap(f(this.val));
+};
+```
+
+基于 container 的简单操作: 2 + 3 = 5
+
+```js
+const plus = R.curry((a, b) => a + b);
+const plus2 = plus(2);
+const three = wrap(3);
+three
+  .fmap(plus2) //-> Wrapper(5)
+  .map(R.identity); // -> 5
+
+//简化版
+const plus = R.curry((a, b) => a + b);
+
+wrap(3)
+  .fmap(plus(2))
+  .map((_) => _); // -> 5
+```
