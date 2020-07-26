@@ -124,3 +124,55 @@ export default {
   },
 };
 ```
+
+# 使用`.sync` 来更新 props
+
+## 更新单个 prop `:propName.sync="data"`
+
+parent
+
+```html
+<child :title.sync="title"></child>
+```
+
+child
+
+```js
+export default {
+  props: {
+    title: String,
+  },
+  methods: {
+    changeTitle() {
+      this.$emit("update:title", "hello");
+    },
+  },
+};
+```
+
+## 更新多个 props `v-bind.sync="data"`
+
+parent
+
+```html
+<child v-bind.sync="bundle"></child>
+<script>
+  data() {
+    return {
+      bundle:{
+        prop1: 1,
+        prop2: 2
+      }
+    }
+  }
+</script>
+```
+
+child
+
+```js
+export default {
+  props: ["prop1", "props"],
+  //其余保持一致
+};
+```
