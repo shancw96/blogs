@@ -67,4 +67,54 @@ var bstToGst = function (root) {
 
 二叉搜索树本质上还是有序列表，通过中序遍历能够得到从小到大的排列
 
-## 114:二叉搜索树 -> 累加树
+## 236 二叉树的最近公共祖先
+
+<img src="236.png" style="zoom:50%" alt="二叉树的最近公共祖先">
+这道题目 主要是通过后序遍历进行状态传递，如果同时满足要求的条件，则证明它是最近公共祖先。
+
+条件 1：如果 p q 分别在当前节点的左右子树上，那么该节点是最近公共祖先
+
+```js
+isInLeftChild && isInRightChild;
+```
+
+条件 2：如果当前节点是他自己的祖先，并且另外一个节点在左右子树的任一个上，那么该节点是最近公共祖先
+
+```js
+isInCur && (isInLeftChild || isInRightChild);
+```
+
+状态传递：后序遍历从下往上传递是否存在的状态（在左右子树或当前节点），只要有一个满足条件，则向上传递 true
+
+```js
+// 节点不存在 传递状态 false
+return false;
+// 节点存在 根据情况传递
+return isInRightChild || isInLeftChild || isInCur;
+```
+
+结束条件：
+
+1. 当前节点不存在 return false（状态传递）
+2. 满足公共祖先节点要求 return node （结果输出）
+
+```js
+var lowestCommonAncestor = function (root, p, q) {
+  if (!root) return false;
+  // 递 - 记录层级信息 归 - 回溯层级信息
+  const isInLeftChild = lowestCommonAncestor(root.left, p, q);
+  const isInRightChild = lowestCommonAncestor(root.right, p, q);
+  const isInCur = root.val === p.val || root.val === q.val;
+  if (
+    (isInLeftChild && isInRightChild) ||
+    (isInCur && (isInLeftChild || isInRightChild))
+  ) {
+    return root;
+  }
+  return isInRightChild || isInLeftChild || isInCur;
+};
+```
+
+### 小结
+
+此题最重要的是，理解状态传递的思想，弄明白后序遍历的过程（递 - 记录层级信息 归 - 回溯层级信息）

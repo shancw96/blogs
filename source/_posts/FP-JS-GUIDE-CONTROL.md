@@ -1,7 +1,7 @@
 ---
 title: FP 指北 - BASIC
 categories: [Functional Programming]
-tags: []
+tags: [函数式]
 toc: true
 date: 2020/8/9
 ---
@@ -78,9 +78,7 @@ showStudent("8888-888-88");
 
 # 控制流
 
-## I combinator identity :: a -> a
-
-## K combinator tap :: (a -> \*) -> a -> a
+## `K combinator tap :: (a -> *) -> a -> a`
 
 可以讲 debug 函数 插入 控制流中，例如
 
@@ -124,5 +122,3 @@ result = joinFn(a, b);
                 |
               outPut
 ```
-
-<img src="forkCombinator" alt="fork combinator">

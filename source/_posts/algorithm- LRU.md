@@ -1,7 +1,7 @@
 ---
-title: LRU 算法知多少
+title: 算法 - LRU
 categories: [算法]
-tags: [链表, 数组]
+tags: [链表]
 toc: true
 date: 2020/6/17
 ---
