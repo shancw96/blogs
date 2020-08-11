@@ -1,5 +1,5 @@
 ---
-title: 算法-BST（二叉搜索树）
+title: 算法-二叉树
 categories: [算法]
 tags: [二叉树]
 toc: true
