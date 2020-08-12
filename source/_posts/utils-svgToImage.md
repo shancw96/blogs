@@ -6,24 +6,14 @@ toc: true
 date: 2020/6/19
 ---
 
-# 需求：
+## 需求：
 
-将 svg 源文件 插入 konva 中，支持后续的，可操作，可导出功能
-
-# 分析
-
-因为需要插入 konva 而不是简单的插入 dom 元素下。因此单纯使用 innerHTML 不符合开发需求。
-转而采用 svg 转 base64 的方式 内嵌 src 完成。
+将 svg 字符串 作为 konva-image 插入 konva 中
 流程如下 svgString -> svgEl -> base64 -> image -> konva Image
 
-# utils
+## svgStr-> svgEl -> base64
 
-## svgStr -> svgEl
-
-```js
-```
-
-## svgEl -> base64
+svgStr -> svgEl 思路： 创建一个 div，在其内部使用 innerHTML 的方式插入 svgStr 来生成 svgEl
 
 ```js
 /**
@@ -38,6 +28,10 @@ const svg2Base64 = (svgEl) => {
 };
 ```
 
+1. btoa() 从 String 对象中创建一个 base-64 编码的 ASCII 字符串，其中字符串中的每个字符都被视为一个二进制数据字节
+2. unescape() 方法计算生成一个新的字符串，其中的十六进制转义序列将被其表示的字符替换
+   > 虽然 unescape() 方法已被废弃，但是使用 decodeURI 或者 decodeURIComponent 并没有达到预期效果，因此还是选择 unescape
+
 ## base64 -> image
 
 ```js
@@ -50,7 +44,7 @@ const base64ToImageEl = (base64Str) => {
 };
 ```
 
-## konva Image download (Vue)
+## Image download
 
 ```js
 function handleImageDownload() {
