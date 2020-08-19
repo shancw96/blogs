@@ -65,6 +65,8 @@ function add(num1, num2) {
 
 ### 浮点数展示
 
+#### 知道整数位个数
+
 Number.prototype.toPrecision 方法可以对精度进行限制，而不会四舍五入
 
 ```js
@@ -74,6 +76,69 @@ Number.prototype.toPrecision 方法可以对精度进行限制，而不会四舍
 // 如果某些组件需要数字类型,则加上parseFloat
 parseFloat((1.4000000000000001).toPrecision(12)) === 1.4; // True
 ```
+
+#### 不知道整数位个数
+
+简单解决方案还是先乘以 100，然后，四舍五入。最后再除以 100
+比如：
+
+```js
+Math.round(10.145 * 100) / 100;
+```
+
+封装成函数
+
+```js
+Number.prototype.toFixed = function (n) {
+  if (n > 20 || n < 0) {
+    throw new RangeError("toFixed() digits argument must be between 0 and 20");
+  }
+  const number = this;
+  if (isNaN(number) || number >= Math.pow(10, 21)) {
+    return number.toString();
+  }
+  if (typeof n == "undefined" || n == 0) {
+    return Math.round(number).toString();
+  }
+
+  let result = number.toString();
+  const arr = result.split(".");
+
+  // 整数的情况
+  if (arr.length < 2) {
+    result += ".";
+    for (let i = 0; i < n; i += 1) {
+      result += "0";
+    }
+    return result;
+  }
+
+  const integer = arr[0];
+  const decimal = arr[1];
+  if (decimal.length == n) {
+    return result;
+  }
+  if (decimal.length < n) {
+    for (let i = 0; i < n - decimal.length; i += 1) {
+      result += "0";
+    }
+    return result;
+  }
+  result = integer + "." + decimal.substr(0, n);
+  const last = decimal.substr(n, 1);
+
+  // 四舍五入，转换为整数再处理，避免浮点数精度的损失
+  if (parseInt(last, 10) >= 5) {
+    const x = Math.pow(10, n);
+    result = (Math.round(parseFloat(result) * x) + 1) / x;
+    result = result.toFixed(n);
+  }
+
+  return result;
+};
+```
+
+**将浮点数乘以（扩大）10 的 n 次方倍，把浮点数变为整数后再进行相应的运算，最后将得到的结果除以（缩小）10 的 n 次方倍**
 
 # 装箱转换 （基本类型 -> 对应的对象)
 
