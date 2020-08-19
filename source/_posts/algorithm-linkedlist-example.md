@@ -1,5 +1,5 @@
 ---
-title: 5 个链表常见操作（精）
+title: 算法-5 个链表常见操作
 categories: [算法]
 tags: [链表]
 toc: true

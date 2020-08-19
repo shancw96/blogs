@@ -1,11 +1,10 @@
 ---
-title: Vue 生态
+title: Vue Router
 categories: [Vue]
 tags: []
 toc: true
 date: 2020/7/25
 ---
-
 
 # VueRouter
 

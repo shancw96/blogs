@@ -1,5 +1,5 @@
 ---
-title: 回文链表
+title: 算法 - 回文链表
 categories: [算法]
 tags: [链表]
 toc: true
