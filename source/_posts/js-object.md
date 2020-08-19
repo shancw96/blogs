@@ -33,12 +33,3 @@ date: 2020/6/30
   > stackoverflow: [When Array is called as a function rather than as a constructor, it creates and initialises a new Array object. Thus the function call Array(…) is equivalent to the object creation expression new Array(…) with the same arguments.](https://stackoverflow.com/questions/8205691/array-vs-new-array)
 - new Date() 与 Date()
   MDN:[创建一个新 Date 对象的唯一方法是通过 new 操作符，例如：let now = new Date();若将它作为常规函数调用（即不加 new 操作符），将返回一个字符串，而非 Date 对象。 ](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Date)
-- Function 与 =>
-  在 ES6 之后 => 语法创建的函数仅仅是函数，它们无法被当作构造器使用，见以下代码：
-  ```js
-  new ((a) => 0)(); // error
-  ```
-
-### **原生对象(Native Object)**：可以由用户通过 Array、RegExp 等内置构造器或者特殊语法创建的对象。
-
-## 普通对象(Ordinary Object)：用户自己定义
