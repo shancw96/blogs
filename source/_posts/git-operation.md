@@ -6,7 +6,16 @@ toc: true
 date: 2020/7/3
 ---
 
-# bash + git branch 删除本地垃圾分支
+## remote 分支操作
+
+```bash
+git remote rm [仓库名称] # 删除
+git remote add [仓库名称] [地址] # 添加
+git remote # 查看remote 仓库列表
+git remote set-url [仓库名称] [url] # 更改仓库的地址
+```
+
+## bash + git branch 删除本地垃圾分支
 
 删除一条分支：
 
@@ -27,7 +36,7 @@ git branch | grep 'dev' | xargs git branch -d
 # 该例将会删除分支名包含’dev’字符的分支
 ```
 
-## 命令解释
+### 命令解释
 
 `|`
 管道命令，用于将一串命令串联起来。前面命令的输出可以作为后面命令的输入。
@@ -46,7 +55,7 @@ git branch | grep 'dev' | xargs git branch -d
 
 xargs 是实现“将标准输入作为命令的参数"
 
-## 使用例子
+### 使用例子
 
 删除所有包含 bugFix 关键字的分支
 
@@ -54,12 +63,12 @@ xargs 是实现“将标准输入作为命令的参数"
 git branch | grep 'bugFix' | xargs git branch -d
 ```
 
-# cheery-pick: 选择某一个 commit merge 到当前分支
+## cheery-pick: 选择某一个 commit merge 到当前分支
 
 1. `git log` 或 `sourcetree 工具`查看一下你想选择哪些 commits 进行合并 如 82ecb31
 2. `git cherry-pick 82ecb31`
 
-# reset 撤销提交的代码
+## reset 撤销提交的代码
 
 ```js
 git reset --hard head^ 不保留代码，恢复成上一个 commit 版本代码
