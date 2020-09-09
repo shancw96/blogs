@@ -2,7 +2,6 @@
 title: interview - js
 categories: [interview]
 toc: true
-date: 2020/8/10
 ---
 
 ## 01 请简单说一下 `['1', '2', '3', '4', '5'].map(parseInt)`的结果
@@ -102,3 +101,11 @@ function throttle(func, interval) {
   };
 }
 ```
+
+## 以下 3 个判断数组的方法，请分别介绍它们之间的区别和优劣
+
+### Object.prototype.toString.call()
+
+### Array.isArray
+
+### instanceof
