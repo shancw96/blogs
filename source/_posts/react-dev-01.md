@@ -1,12 +1,16 @@
 ---
-title: cloudExpress 开发 01
+title: cloudExpress 开发 01 宏观架构
 categories: [React]
 tags: []
 toc: true
 date: 2020/9/9
 ---
 
+CLI 为 create-react-app
+
 ## eslint 开启
+
+> 基于 create-react-app 不需要手动安装 eslint
 
 ```js
 {
@@ -20,7 +24,6 @@ date: 2020/9/9
   }
 }
 // package.json
-"eslint": "^7.8.1",
 "eslint-config-react-app": "^5.2.1",
 "eslint-plugin-react": "^7.20.6",
 "eslint-plugin-react-hooks": "^4.1.0"
@@ -58,3 +61,52 @@ Redux 的数据流
 2. Redux store 调用传入的 reduer 函数
 3. 根 reducer 应该把多个子 reducer 输出合并成一个单一的 state 树。
 4. Redux store 保存了根 reducer 返回的完整 state 树。
+
+## Router
+
+> App.js 主要用于路由设置
+
+需要的 package
+
+- react-router-dom
+- react-router
+
+### Switch 组件
+
+> <Switch> looks through its children <Route>s and renders the first one that matches the current URL.
+
+Switch 和 js 中 switch 的作用相同，在 switch 的子路由中 匹配当前 url
+
+例子：
+当匹配到 / 则执行 PrivateRoute 的规则判断
+当匹配到 /login 则执行 AccountRoute 的规则判断
+
+```js
+<Router>
+  <Switch>
+    <PrivateRoute path="/">
+      <Admin />
+    </PrivateRoute>
+    <AccountRoute path="/login">
+      <Login />
+    </AccountRoute>
+  </Switch>
+</Router>
+```
+
+#### 使用自定义路由实现简单的组件鉴权
+
+```js
+// PrivateRoute.jsx
+export default function PrivateRoute({ children, ...rest }) {
+  // children: React.Element
+  // rest: computedMatch: {path, url, isExact, params}, location: {}, path
+
+  const account = useSelector((state) => state.account);
+  return (
+    <Route {...rest} render={() => (account.email ? children : <Login />)} />
+  );
+}
+```
+
+> render:func 行内渲染函数
