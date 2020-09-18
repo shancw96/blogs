@@ -33,3 +33,11 @@ Image 可以独立存在，但是 Container 需要运行 Image 才能产生: Ima
 
 1. `DockerFile` -> image: `docker build`
 2. image -> container: `docker create`
+
+## docker hub
+
+### images 种类
+
+- **Base images** are images that have no parent images, usually images with an **OS** like ubuntu, alpine or debian.
+
+- **Child images** are images that **build on base images** and add additional functionality.
