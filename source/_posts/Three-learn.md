@@ -3,7 +3,7 @@ title: 「three」几何体展示，两大类相机
 categories: [前端图形化]
 tags: [ThreeJS]
 toc: true
-date:
+date: 2020/10/4
 ---
 
 ## 内容概览

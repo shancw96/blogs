@@ -3,7 +3,7 @@ title: webpack - 安装 & entry, output, loaders, plugins,mode 简单接触
 categories: [webpack]
 tags: []
 toc: true
-date:
+date: 2020/10/4
 ---
 
 ## webpack 安装

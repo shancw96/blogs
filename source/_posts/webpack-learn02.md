@@ -3,7 +3,7 @@ title: webpack - 文件解析(js/jsx, css/scss, 图片/字体)
 categories: [webpack]
 tags: []
 toc: true
-date:
+date: 2020/10/5
 ---
 
 ## es6, jsx 解析 babel-loader
