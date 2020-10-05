@@ -1,9 +1,9 @@
 ---
 title: docker 学习 - 命令01 运行一个container
-categories: []
+categories: [Docker]
 tags: []
 toc: true
-date:
+date: 2020/9/18
 ---
 
 **此处 image 使用 alpine linux**

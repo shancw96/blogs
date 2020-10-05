@@ -1,9 +1,9 @@
 ---
 title: docker学习 - 命令02 运行一个webApp
-categories: []
+categories: [Docker]
 tags: []
 toc: true
-date:
+date: 2020/9/19
 ---
 
 ## example- webApp
