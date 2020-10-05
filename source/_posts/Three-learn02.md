@@ -3,7 +3,7 @@ title: 「three」顶点，几何体结构
 categories: [前端图形化]
 tags: [ThreeJS]
 toc: true
-Date:2020/10/6
+Date: 2020/10/6
 ---
 
 几何体(Geometry)是由顶点构成，不同的渲染材质（material），展现的图形也不一样。渲染材质有 点（point），线(line)，面(mesh)。Geometry + material = 可视化图形
