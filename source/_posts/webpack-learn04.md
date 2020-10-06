@@ -9,6 +9,9 @@ date: 2020/10/5
 ## 热更新
 
 需要用到的插件 plugin: HotModuleReplacementPlugin
+
+需要用到的包：webpack-dev-server
+
 需要开启的选项：
 
 - 通过 WDS 启动: webpack-dev-server
@@ -28,6 +31,15 @@ module.exports = {
     hot: true
   }
 }
+```
+
+## package.json
+
+```json
+  "scripts": {
+    ...
+    "dev": "webpack-dev-server --config webpack.dev.js --open"
+  },
 ```
 
 > WDS 特点：

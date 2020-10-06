@@ -49,24 +49,29 @@ module.exports = {
     filename: "bundle.js",
     path: path.join(__dirname, "dist"),
   },
-  modules: {
+  module: {
     rules: [
       {
         test: /\.css$/,
         // use: ["style-loader", "css-loader", "less-loader"],
-        use: [MiniCssExtractPlugin.loader, "style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       // less 解析
       {
         test: /\.css$/,
         // use: ["style-loader", "css-loader", "less-loader"],
-        use: [MiniCssExtractPlugin.loader, "style-loader", "css-loader"],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "less-loader"],
       },
       // sass 解析
       {
         test: /\.scss$/,
         // use: ["style-loader", "css-loader", "sass-loader"],
-        use: [MiniCssExtractPlugin.loader, "style-loader", "css-loader"],
+        use: [
+          MiniCssExtractPlugin.loader,
+          "style-loader",
+          "css-loader",
+          "sass-loader",
+        ],
       },
     ],
   },
@@ -87,7 +92,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.join(__dirname, "dist"),
   },
-  modules: {
+  module: {
     rules: [
       // url-loader： 大于10240的图片不做base64 转换，此时和file-loader base64转换
       {
@@ -116,4 +121,74 @@ module.exports = {
     ],
   },
 };
+```
+
+## 压缩
+
+### JS 文件压缩
+
+内置了 uglifyjs-webpack-plugin，默认开启
+
+### CSS 压缩
+
+- cssnano css 预处理器
+- optimize-css-assets-webpack-plugin 压缩插件（基于 cssnano 预处理器）
+
+```js
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+module.exports = {
+  ...
+  plugins: [
+    ...,
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/g,
+      cssProcessor: require('cssnano')
+    })
+  ],
+  ...
+}
+```
+
+### HTML 压缩
+
+- html-webpack-plugin
+
+```js
+module.exports = {
+  ...
+  plugins: [
+    ...,
+    new HtmlWebpackPlugin({
+        template: path.join(__dirname, 'src/index.html'),//使用的模版
+        filename: 'index.html',//生成的文件名称
+        chunks: ['index'],// 多页应用会用到？对应index chunk
+        inject: true, // 将所有的assets 注入到当前模版中
+        // 压缩配置
+        minify: {
+            html5: true,
+            collapseWhitespace: true,
+            preserveLineBreaks: false,
+            minifyCSS: true,
+            minifyJS: true,
+            removeComments: false
+        }
+    })
+  ],
+  ...
+}
+
+// index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
 ```

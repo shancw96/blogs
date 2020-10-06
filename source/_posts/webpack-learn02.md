@@ -26,7 +26,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.join(__dirname, "dist"), // -> /Users/wushangcheng/Desktop/dist
   },
-  modules: {
+  module: {
     rules: [
       {
         test: /\.js$/,
@@ -83,7 +83,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.join(__dirname, "dist"),
   },
-  modules: {
+  module: {
     rules: [
       {
         test: /\.css$/,
@@ -120,7 +120,7 @@ module.exports = {
     filename: "bundle.js",
     path: path.join(__dirname, "dist"),
   },
-  modules: {
+  module: {
     rules: [
       // url-loader： 大于10240的图片不做base64 转换，此时和file-loader base64转换
       {
