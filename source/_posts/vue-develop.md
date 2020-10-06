@@ -3,7 +3,7 @@ title: Nuxt 基础项目构建
 categories: ["Vue"]
 tags: []
 toc: true
-date:
+date: 2020/9/5
 ---
 
 ## Directory Structure
