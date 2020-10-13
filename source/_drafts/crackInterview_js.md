@@ -106,6 +106,74 @@ function throttle(func, interval) {
 
 ### Object.prototype.toString.call()
 
+每一个对象都有 toString 方法，如果该 toString 方法没有被 overwrite，那么返回的值是 [Object type]
+Object.prototype.toString.call(String(5)) // -> 使用 Object 原型上的 toString 方法来执行 String(5)避免 overwrite
+
 ### Array.isArray
 
+判断一个对象是否为 array
+
 ### instanceof
+
+A instanceof B A 的原型链上是否存在 B 的原型
+
+```js
+const instanceof_polyfill = (A, B) =>
+  A.__proto__ === B.prototype
+    ? true
+    : A.__proto__ === null
+    ? false
+    : instanceof_polyfill(A.__proto__, B);
+```
+
+#### 原型链图
+
+<img src="prototype.png" />
+
+### 其他的类型判断
+
+#### typeof
+
+js 在底层存储变量的时候，会在变量的机器码（变量通过编译形成）的低位 1-3 位存储其类型信息
+
+- 000 对象
+- 010 浮点型
+- 100 字符串
+- 110 布尔
+- 1 整数
+
+null：所有机器码均为 0 **由于 null 的所有机器码均为 0，因此直接被当做了对象来看待**
+undefined: -2^30
+
+typeof 只能 string number boolean function symbol，但是 Array, Object 统一为 object
+
+## 箭头函数与普通函数的区别
+
+### 区别
+
+- 箭头函数没有自己的 this，函数体内部的 this 为定义时所在的作用域中的 this
+- 箭头函数没有自己的 prototype
+
+- 由于 new 生成实例需要用到 函数体的 prototype 和本身 this 因此 箭头函数无法作为构造函数进行使用
+
+### new 实现
+
+- 创建一个空的简单 JavaScript 对象（即{}）；
+- 链接该对象（设置该对象的 constructor）到另一个对象 ；
+- 将步骤 1 新创建的对象作为 this 的上下文 ；
+- 如果该函数没有返回对象，则返回 this。
+
+```js
+function new_polyfill(father, ...args) {
+  let result = {};
+  result.__proto__ = father.prototype;
+  const result2 = father.apply(result, args);
+  if (
+    (typeof result2 === "object" || typeof result2 === "function") &&
+    result2 !== null
+  ) {
+    return result2;
+  }
+  return result;
+}
+```
