@@ -177,3 +177,109 @@ function new_polyfill(father, ...args) {
   return result;
 }
 ```
+
+## 引用类型作为函数的参数
+
+写出这段代码的打印值
+
+```js
+function changeObjProperty(o) {
+  o.siteUrl = "http://www.baidu.com";
+  o = new Object();
+  o.siteUrl = "http://www.google.com";
+}
+let webSite = new Object();
+changeObjProperty(webSite);
+console.log(webSite.siteUrl);
+```
+
+ans: {siteUrl: 'http://www.baidu.com'}
+
+```js
+// 这里把o改成a
+// webSite引用地址的值copy给a了
+function changeObjProperty(a) {
+  // 改变对应地址内的对象属性值
+  a.siteUrl = "http://www.baidu.com";
+  // 变量a指向新的地址 以后的变动和旧地址无关
+  a = new Object();
+  a.siteUrl = "http://www.google.com";
+  a.name = 456;
+}
+var webSite = new Object();
+webSite.name = "123";
+changeObjProperty(webSite);
+console.log(webSite); // {name: 123, siteUrl: 'http://www.baidu.com'}
+```
+
+> 引用类型在函数中的传递是复制一份地址进行传递，也就是说函数体的参数是原对象的地址 copy
+
+## async await 的实现？（使用 generator 实现）
+
+### generator
+
+```js
+function* gen() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+let g = gen(); // Generator {}
+```
+
+#### methods
+
+- `Generator.prototype.next()`
+  返回一个由 yield 表达式生成的值。
+
+- `Generator.prototype.return()`
+  返回给定的值并结束生成器。
+
+* `Generator.prototype.throw()`
+  向生成器抛出一个错误。
+
+#### example id 生成器
+
+```js
+function* idMaker() {
+  let index = 1;
+  while (true) yield (index += 1);
+}
+```
+
+### 使用 generator 模拟 async await
+
+场景：下载文件
+
+- 使用 generator 模拟 async await
+
+```js
+function asyncFnWrapper(fn) {
+  // function* operations() {
+  //   const originalData = yield fetchData(url);
+  //   const result = yield sendPayload(originalData);
+  //   console.log(result);
+  // }
+  // async 返回一个函数；
+  // async函数体在调用后自动执行所有异步操作
+  function run(generator) {
+    return new Promise(resolve, reject) {
+      let iterator = generator()
+      start(iterator)
+      function start(iterator) {
+        const tempGen = iterator.next()
+        tempGen.isDone() ? resolve(tempGen.value) : tempGen.value.then(() => start(tempGen))
+      }
+    }
+  }
+  return run(operations)
+}
+
+asyncFnWrapper(function()* {
+  const ans = yield fetch(url)
+  const ans2 = yield fetch2(ans)
+}).then(res => {
+  console.log(res) /*should be ans2*/
+})
+```
