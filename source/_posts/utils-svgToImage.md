@@ -24,13 +24,20 @@ const svg2Base64 = (svgEl) => {
   const svgEl = document.createElement("div");
   svgEl.innerHTML = svgStr;
   const s = new XMLSerializer().serializeToString(svgEl.firstElementChild);
-  return `data:image/svg+xml;base64,${btoa(unescape(encodeURIComponent(s)))}`;
+  return `data:image/svg+xml;base64,${window.btoa(
+    unescape(encodeURIComponent(s))
+  )}`;
 };
 ```
 
 1. btoa() 从 String 对象中创建一个 base-64 编码的 ASCII 字符串，其中字符串中的每个字符都被视为一个二进制数据字节
-2. unescape() 方法计算生成一个新的字符串，其中的十六进制转义序列将被其表示的字符替换
+2. encodeURIComponent 能够转译特殊字符，如`%$/中文等`
+3. unescape() 方法计算生成一个新的字符串，其中的十六进制转义序列将被其表示的字符替换.
    > 虽然 unescape() 方法已被废弃，但是使用 decodeURI 或者 decodeURIComponent 并没有达到预期效果，因此还是选择 unescape
+   > [Encoding / decoding UTF8 in javascript](http://ecmanaut.blogspot.com/2006/07/encoding-decoding-utf8-in-javascript.html)
+4. unescape + encodeURIComponent 组合能够生成 utf-8 格式的字符串
+5. [在多数浏览器中，使用 btoa() 对 Unicode 字符串进行编码都会触发 InvalidCharacterError 异常。 ](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowBase64/btoa)
+6. `window.btoa(unescape(encodeURIComponent(s)))` string -> utf-8 编码的 string -> base-64 编码的 ASCII 字符串
 
 ## base64 -> image
 
@@ -44,7 +51,7 @@ const base64ToImageEl = (base64Str) => {
 };
 ```
 
-## Image download
+## Image download(基于 konva(vue canvas 框架))
 
 ```js
 function handleImageDownload() {
