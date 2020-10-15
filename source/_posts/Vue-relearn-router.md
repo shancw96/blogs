@@ -1,5 +1,5 @@
 ---
-title: Vue Router
+title: 在项目中 Vue Router的构建
 categories: [Vue]
 tags: []
 toc: true

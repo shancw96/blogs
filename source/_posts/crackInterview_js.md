@@ -108,6 +108,7 @@ function throttle(func, interval) {
 
 每一个对象都有 toString 方法，如果该 toString 方法没有被 overwrite，那么返回的值是 [Object type]
 Object.prototype.toString.call(String(5)) // -> 使用 Object 原型上的 toString 方法来执行 String(5)避免 overwrite
+具体参考这边文章[js-类型 - 为什么 Array String Number Boolean RegExp Date 不能直接调用 toString ? xxx.toString](https://shancw96.github.io/blogs/2020/06/24/js-type/)
 
 ### Array.isArray
 

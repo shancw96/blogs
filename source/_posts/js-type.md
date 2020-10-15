@@ -1,5 +1,5 @@
 ---
-title: js-类型
+title: js-number
 categories: [js]
 tags: [js类型]
 toc: true
@@ -20,13 +20,23 @@ date: 2020/6/24
 
 - `Number.MAX_VALUE`: js 中的最大值
 - `Number.MIN_VALUE`: js 中的最小值
-- `Number.MAX_SAFE_INTERGER`:最大安全整数 2^53 - 1
+- `Number.MAX_SAFE_INTERGER`:最大安全整数 2^53 - 1 。
 - `Number.MIN_SAFE_INTERGER`:最小安全整数 -2^53 - 1
 
 * `Number.POSITIVE_INFINITY:` 对应 Infinity 代表正无穷
 * `Number.EPSILON`：是一个极小的值，用于检测带小数的数值计算结果是否在误差范围内
 * `Number.NaN`：表示非数字，NaN 与任何值都不相等，包括 NaN 本身
 * `Infinity`：表示无穷大，分 正无穷 Infinity 和 负无穷 -Infinity
+
+**2020/10/15 补充**
+MAX_SAFE_INTERGER，MIN_SAFE_INTERGER 是 JS 中有效的最小最大数字。当超过这个极限后，数据将丢失可信度。如
+
+```js
+2 ** 53 - 1; //> 9007199254740991;
+2 ** 53 + 1; //> 9007199254740992;
+2 ** 53 + 2; //> 9007199254740994;
+2 ** 53 + 3; //> 9007199254740996;
+```
 
 ## 为什么 0.1 + 0.2 !== 0.3 ? 在开发中要怎么去解决
 
@@ -208,3 +218,5 @@ consoel.log(o + "");
 // toPrimitive
 // hello
 ```
+
+**2020/10 补充：拆箱转换细节**
