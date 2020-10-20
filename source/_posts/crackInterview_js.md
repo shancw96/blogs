@@ -256,31 +256,50 @@ function* idMaker() {
 - 使用 generator 模拟 async await
 
 ```js
-function asyncFnWrapper(fn) {
-  // function* operations() {
-  //   const originalData = yield fetchData(url);
-  //   const result = yield sendPayload(originalData);
-  //   console.log(result);
-  // }
-  // async 返回一个函数；
-  // async函数体在调用后自动执行所有异步操作
-  function run(generator) {
-    return new Promise(resolve, reject) {
-      let iterator = generator()
-      start(iterator)
-      function start(iterator) {
-        const tempGen = iterator.next()
-        tempGen.isDone() ? resolve(tempGen.value) : tempGen.value.then(() => start(tempGen))
+function asyncAwait_polyfill(genFn) {
+  return new Promise((resolve, reject) => {
+    const iterator = genFn();
+    run();
+    function run(value) {
+      const tempResult = iterator.next(value); // iterator 内部迭代，每次调用后会进入不同的状态
+      if (tempResult.done) {
+        resolve(tempResult.value);
+      } else {
+        tempResult.value.then((res) => {
+          run(res);
+        });
       }
     }
-  }
-  return run(operations)
+  });
 }
 
-asyncFnWrapper(function()* {
-  const ans = yield fetch(url)
-  const ans2 = yield fetch2(ans)
-}).then(res => {
-  console.log(res) /*should be ans2*/
-})
+const promise100Start = () =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(1);
+    }, 1000);
+  });
+const promise100 = (val) =>
+  new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(val + 1);
+    }, 1000);
+  });
+
+asyncAwait_polyfill(function* gen() {
+  const temp1 = yield promise100Start();
+  console.log("yield promise100Start", temp1);
+  const temp2 = yield promise100(temp1);
+  console.log("yield promise100", temp2);
+  return temp2;
+}).then((res) => {
+  console.log("asyncAwait_polyfill", res);
+});
+
+/**
+ *
+ * yield promise100Start 1
+ * yield promise100 2
+ * asyncAwait_polyfill 2
+ * /
 ```
