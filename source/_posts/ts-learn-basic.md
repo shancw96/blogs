@@ -8,6 +8,18 @@ date: 2020/12/03
 
 -------- latestUpdate: 2020/12/22 --------
 
+## TS terminal 执行
+
+ts-node 包是一个 REPL 终端解析器,
+
+### 执行.
+
+ts-node script.ts
+
+### 解析
+
+ts-node-transpile-only scripts.ts
+
 ## namespace - 一种灵活的模块化
 
 namespace 是指内部模块化声明
