@@ -1,6 +1,6 @@
 ---
 title: 正则表达式
-categories: ["utils"]
+categories: [utils]
 tags: []
 toc: true
 date: 2020/12/15

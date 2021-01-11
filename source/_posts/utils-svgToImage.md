@@ -1,6 +1,6 @@
 ---
 title: svgStr To Image (based on konva)
-categories: ["utils"]
+categories: [utils]
 tags:
 toc: true
 date: 2020/6/19
