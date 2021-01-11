@@ -1,20 +1,13 @@
 ---
 title: interview - js
 categories: [interview]
+Date: 2020/9/11
 toc: true
 ---
 
 ## 01 请简单说一下 `['1', '2', '3', '4', '5'].map(parseInt)`的结果
 
 ### 结果
-
-```js
-parseInt("1", 0); // 1
-parseInt("2", 1); // 二进制不能解析3
-parseInt("3", 2); // 二进制不能解析3
-parseInt("10", 3); // 1*3^1 + 0*3^0 = 3
-parseInt("10", 4); // 1*4^1 + 0*3^0 = 4
-```
 
 ### parseInt 语法
 
@@ -37,70 +30,6 @@ parseInt(string, radix); // 将radix进制的string 转换为10进制Int
   - 如果 string 以 0x 开头，那么 radix 被假定为 16
   - 如果 string 以 0 开头，radix 被假定为 8 进制或 10 进制，**ES5 建议使用 10 进制**，但并不是所有浏览器都支持，所以推荐在使用 parseInt 的时候显示指定 radix
   - 如果输入的 String 以任何其他的值开头，radix 是 10 进制
-
-## 02 请实现一下防抖和节流
-
-### 防抖函数
-
-防抖函数借助 closure 来保存 timeout。这也是为什么 debounce 要写成 `myDebounce: debounce(...)`这种格式。
-
-> myDebounce 在初始化的时候执行 function debounce 返回一个匿名函数，匿名函数的作用域链携带了 timeout
-
-这个匿名函数的作用域链如下
-
-```js
-------global
-...
-    ------ debounce
-	  timeout
-	  ....
-	  --------- 返回的匿名函数
-```
-
-#### 代码实现
-
-```js
-function debounce(func, wait) {
-  let timeout = null;
-  return function () {
-      const args = arguments;
-      clearTimeout(timeout)
-      timeout = setTimeout(() => {
-	// 为了确保上下文环境为当前的this，不能直接用fn。
-        func.apply(this, args)
-      }, wait);
-  }
-}
-export default {
-...
-  methods: {
-    debounce: debounce(function() {
-      this.count += 1;
-    }, 500),
-  },
-};
-```
-
-### 节流函数
-
-原理与 防抖函数相同，通过存储时间戳来记录上次调用函数的时间
-
-#### 代码实现
-
-```js
-// 只有当上一次调用的时间 与 现在时间的差值 超过了设定的时间 才会再次调用
-function throttle(func, interval) {
-  let lastTimeStamp = 0;
-  return function () {
-    let curDate = Date.now();
-    const diff = curDate - lastTimeStamp;
-    if (diff > interval) {
-      func.apply(this, arguments);
-      lastTimeStamp = curDate;
-    }
-  };
-}
-```
 
 ## 以下 3 个判断数组的方法，请分别介绍它们之间的区别和优劣
 
@@ -159,15 +88,14 @@ typeof 只能 string number boolean function symbol，但是 Array, Object 统�
 
 ### new 实现
 
-- 创建一个空的简单 JavaScript 对象（即{}）；
-- 链接该对象（设置该对象的 constructor）到另一个对象 ；
-- 将步骤 1 新创建的对象作为 this 的上下文 ；
-- 如果该函数没有返回对象，则返回 this。
+1. 创建一个空对象
+2. 将它的内置 [[prototype]] (通过 `__proto__`可以获取) 属性连接到构造函数的 prototype 属性 (每一个函数都有一个 prototype 属性).
+3. 将构造函数的执行上下文设置为当前对象，并执行
+4. 如果构造函数返回了一个非空对象(non-null object reference),那么返回构造函数的返回值,否则返回新创建的对象
 
 ```js
 function new_polyfill(father, ...args) {
-  let result = {};
-  result.__proto__ = father.prototype;
+  let result = Object.create(father.prototype);
   const result2 = father.apply(result, args);
   if (
     (typeof result2 === "object" || typeof result2 === "function") &&
@@ -178,6 +106,8 @@ function new_polyfill(father, ...args) {
   return result;
 }
 ```
+
+Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的`__proto__`
 
 ## 引用类型作为函数的参数
 
