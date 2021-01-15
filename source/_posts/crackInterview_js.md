@@ -1,7 +1,7 @@
 ---
 title: interview - js
 categories: [interview]
-Date: 2020/9/11
+date: 2020/9/11
 toc: true
 ---
 
