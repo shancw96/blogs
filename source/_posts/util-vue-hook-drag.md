@@ -3,7 +3,7 @@ title: vue自定义指令-拖拽
 categories: [util]
 tags: []
 toc: true
-date: 2020/1/15
+date: 2021/1/15
 ---
 
 ## vue 自定义指令是什么？
