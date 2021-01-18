@@ -3,7 +3,7 @@ title: 各种API 实现
 categories: [造轮子]
 tags: []
 toc: true
-date: 2020/1/7
+date: 2021/1/7
 ---
 
 ## lodash get 实现 01/06
@@ -40,6 +40,36 @@ function get(obj, path, defaultValue) {
     );
     return newStr;
   }
+}
+```
+
+## lodash - curry 实现
+
+example
+
+```js
+var abc = function (a, b, c) {
+  return [a, b, c];
+};
+
+var curried = curry(abc);
+
+curried(1)(2)(3);
+// => [1, 2, 3]
+
+curried(1, 2)(3);
+// => [1, 2, 3]
+
+curried(1, 2, 3);
+// => [1, 2, 3]
+
+function curry(fn) {
+  let accArgs = [];
+  return function curried(...args) {
+    accArgs = [...accArgs, ...args];
+    if (fn.length === accArgs.length) return fn(...accArgs);
+    else return curried;
+  };
 }
 ```
 
