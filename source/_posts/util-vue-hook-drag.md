@@ -1,6 +1,6 @@
 ---
 title: vue自定义指令-拖拽
-categories: [util]
+categories: [utils]
 tags: []
 toc: true
 date: 2021/1/15

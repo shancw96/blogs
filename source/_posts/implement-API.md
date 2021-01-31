@@ -63,11 +63,11 @@ curried(1, 2)(3);
 curried(1, 2, 3);
 // => [1, 2, 3]
 
-function curry(fn) {
-  let accArgs = [];
-  return function curried(...args) {
-    accArgs = [...accArgs, ...args];
-    if (fn.length === accArgs.length) return fn(...accArgs);
+function curry(fn: Function) {
+  let args = [];
+  return function curried(...tempArgs) {
+    args.push(...tempArgs);
+    if (args.length === fn.length) return fn.call(this, args);
     else return curried;
   };
 }
