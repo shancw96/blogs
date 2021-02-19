@@ -14,6 +14,10 @@ date: 2021/2/19
 
 ## 代码实现：无 compiler,手动设置 Watcher 的核心双向绑定（发布订阅）
 
+1. Observer 为 data 的每一个属性生成 Dep（发布订阅 - 事件名）
+2. 手动设置 Watcher 进行订阅操作，订阅指定的 Dep（Dep 添加 Watcher 到他的订阅者队列中）
+3. Dep 更新，触发 Watcher 的通知操作(Dep.notify -> Watcher.run)
+
 ### Dep 与 Watcher 之间的关系 数据结构
 
 ```js
