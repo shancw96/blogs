@@ -10,11 +10,11 @@ date: 2021/2/22
 
 将回调推迟到下一个 DOM 更新周期之后执行。在更改了一些数据以等待 DOM 更新后立即使用它
 
-```js
+```jsx
+...
+'<div>{{ message }}</div>'
+...
 import { createApp, nextTick } from "vue";
-<template>
-  <div>{{ message }}</div>
-</template>;
 const app = createApp({
   setup() {
     const message = ref("Hello!");
@@ -35,13 +35,13 @@ const app = createApp({
 **浏览器只会在一个 task 结束的最后进行一次渲染**, 浏览器的 eventloop 如下图所示:
 <img src="eventloop.jpeg">
 
-图中可知，优先级为：microTask > UI render > macroTask
+图中可知，执行顺序为：`microTask` > `UI render` > `macroTask`
 
-nextTick 获取到的是 更新后的 DOM，显而易见，使用 setTimeout(macroTask) 能实现 nextTick 的效果。但是 setTimeout 实现 nextTick 有个问题，两个 setTimeout 的最小间隔约为 4ms，这就强行限制了两次渲染之间的最小时间差。
+nextTick 获取到的是 更新后的 DOM, **使用 setTimeout(function) 能实现 nextTick 的效果**。但是 setTimeout 实现 nextTick 有个问题，**两个 setTimeout 的最小间隔约为 4ms**，这就强行限制了两次渲染之间的最小时间差。
 
-Vue 的 nextTick 通过 Promise(microTask)实现，因为 Vue 有虚拟 DOM，所以即使在 UI 渲染前，也能够实现同样的效果，且不会限制两次渲染时间
+**Vue 的 nextTick 通过 Promise(microTask)实现**: 因为有虚拟 DOM，所以即使在 UI 渲染前，也能够实现同样的效果，且不会限制两次渲染时间
 
-在 Vue2.5 以后的源码中, Vue nextTick 的降级策略为: microTask(Promise) > macroTask(setImmediate) > macroTask(MessageChannel) > macroTask(setTimeout)
+在 Vue2.5 以后的源码中, **Vue nextTick 的降级策略为: microTask(Promise) > macroTask(setImmediate) > macroTask(MessageChannel) > macroTask(setTimeout)**
 
 ## 模拟实现 nextTick
 
@@ -49,7 +49,7 @@ Vue 的 nextTick 通过 Promise(microTask)实现，因为 Vue 有虚拟 DOM，�
 
 ### setTimeout(f) 还有个更加广泛的用途：切分 cpu 密集型任务.
 
-假设有个任务，从 1 数到 100000000，JS 如果直接执行一个 for loop 或者 while loop 那么很大可能会直接未响应。
+假设有个任务，从 1 数到 100000000，JS 如果直接执行一个 for loop 或者 while loop 那么很大可能会直接显示：当前页面未响应。
 
 ```js
 let i = 0;
