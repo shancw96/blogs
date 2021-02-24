@@ -80,3 +80,17 @@ git reset --soft head^ 保留代码，恢复成上一个 commit
 
 1. git commit --amend // 提交一次追加代码
 2. git push origin [仓库名称] -f // -f 强制推送
+
+## git rebase 与 git merge 区别 [2021/2/24]
+
+**git rebase 作用**: 在多人开发的时候维护 git 树的干净整洁，方便回滚迭代
+**git rebase 的原理**
+
+- 首先，git 会把 feature1 分支里面的每个 commit 取消掉；
+- 其次，把上面的操作临时保存成 patch 文件，存在 .git/rebase 目录下；
+- 然后，把 feature1 分支更新到最新的 master 分支；
+- 最后，把上面保存的 patch 文件应用到 feature1 分支上
+
+**git rebase 缺陷**
+git rebase 和 git merge 都能够实现合并代码的功能，但是 git rebase 不推荐在公共分支上进行操作，因为会出现不同开发人员之间的提交记录不一致的情况，如图
+<img src="git-rebase.png" alt="git rebase 缺陷"/>
