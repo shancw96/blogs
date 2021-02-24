@@ -1,7 +1,7 @@
 ---
 title: Docker Image Vs Container
-categories: [Docker]
-tags: []
+categories: [工程化]
+tags: [Docker]
 toc: true
 date: 2020/9/18
 ---

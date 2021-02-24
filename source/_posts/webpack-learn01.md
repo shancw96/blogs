@@ -1,7 +1,7 @@
 ---
 title: webpack - 安装 & entry, output, loaders, plugins,mode 简单接触
-categories: [webpack]
-tags: []
+categories: [工程化]
+tags: [webpack]
 toc: true
 date: 2020/10/4
 ---

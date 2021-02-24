@@ -1,9 +1,8 @@
 ---
-title: [linux] nginx 安装与简单使用
+title: [linux] nginx 安装与简单使用 TODO
 categories: [linux]
 tags: []
 toc: true
-date: 2021/1/6
 ---
 
 ## 启动，停止，重载 配置文件

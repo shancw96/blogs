@@ -1,7 +1,7 @@
 ---
 title: webpack - 动态import支持
-categories: [webpack]
-tags: []
+categories: [工程化]
+tags: [webpack]
 toc: true
 date: 2020/10/8
 ---

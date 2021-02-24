@@ -1,7 +1,7 @@
 ---
 title: docker 学习 - 命令01 运行一个container
-categories: [Docker]
-tags: []
+categories: [工程化]
+tags: [docker]
 toc: true
 date: 2020/9/18
 ---

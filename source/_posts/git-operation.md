@@ -1,6 +1,6 @@
 ---
 title: git 操作
-categories: [版本控制]
+categories: [工程化]
 tags: [git]
 toc: true
 date: 2020/7/3
@@ -74,3 +74,8 @@ git branch | grep 'bugFix' | xargs git branch -d
 git reset --hard head^ 不保留代码，恢复成上一个 commit 版本代码
 git reset --soft head^ 保留代码，恢复成上一个 commit
 ```
+
+## 使用 amend + push -f 实现远程分支 commit 的追加[2021/2/24]
+
+1. git commit --amend // 提交一次追加代码
+2. git push origin [仓库名称] -f // -f 强制推送

@@ -1,7 +1,7 @@
 ---
 title: docker学习 - 命令02 运行一个webApp
-categories: [Docker]
-tags: []
+categories: [工程化]
+tags: [Docker]
 toc: true
 date: 2020/9/19
 ---

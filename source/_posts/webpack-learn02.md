@@ -1,7 +1,7 @@
 ---
 title: webpack - 文件解析(js/jsx, css/scss, 图片/字体)
-categories: [webpack]
-tags: []
+categories: [工程化]
+tags: [webpack]
 toc: true
 date: 2020/10/5
 ---
