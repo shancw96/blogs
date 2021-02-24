@@ -13,6 +13,7 @@ git remote rm [仓库名称] # 删除
 git remote add [仓库名称] [地址] # 添加
 git remote # 查看remote 仓库列表
 git remote set-url [仓库名称] [url] # 更改仓库的地址
+git push origin --delete feat-eslint-vue-enable # 删除远程分支
 ```
 
 ## bash + git branch 删除本地垃圾分支
