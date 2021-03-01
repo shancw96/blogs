@@ -110,3 +110,5 @@ search:
   field: post
   format: html
   limit: 10000
+
+favicon: /16.ico

@@ -1,5 +1,5 @@
 ---
-title: [linux] apt-get 命令
+title: apt-get 命令
 categories: [linux]
 tags: []
 toc: true
