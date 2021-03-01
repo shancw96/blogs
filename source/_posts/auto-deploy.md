@@ -1,5 +1,5 @@
 ---
-title: hexo auto deploy!!!
+title: hexo auto deploy!
 categories: []
 tags: []
 toc: true
