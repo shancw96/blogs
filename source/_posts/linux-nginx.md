@@ -3,6 +3,7 @@ title: nginx 安装与简单使用 TODO
 categories: [linux]
 tags: []
 toc: true
+date: 2021/3/1
 ---
 
 ## 启动，停止，重载 配置文件
@@ -29,4 +30,21 @@ http {
 }
 ```
 
-server_name ??? 是什么
+server_name 输入的 url 的 host，可以用判断执行哪个 server 代码块
+
+```conf
+http {
+  server {
+    listen 80;
+    server_name www.example.com
+    # ... other config A
+  }
+  server {
+    listen 80;
+    server_name example.com
+    # ... other config B
+  }
+}
+```
+
+如上配置，如果输入 www.example.com 走的是 configA 。输入 example.com 走的是 configB
