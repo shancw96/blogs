@@ -89,7 +89,7 @@ server {
 server {
     listen 80;
     server_name blog.limiaomiao.site;
-    root /home/shancw/Project/blogs/public;   #这是我们的资源文件目录
+    root /home/shancw/Project/blogs/public;   #这是我们的资源文件目录...
     index index.html index.htm index.nginx-debian.html;
 }
 ```
