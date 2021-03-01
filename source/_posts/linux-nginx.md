@@ -1,5 +1,5 @@
 ---
-title: nginx 安装与简单使用 TODO
+title: nginx 安装与简单使用
 categories: [linux]
 tags: []
 toc: true
