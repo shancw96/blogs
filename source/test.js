@@ -19,4 +19,3 @@ function People(name, age) {
 const peo = new People('sh', 25)
 const ceo = new_polyfill(People, 'sh', 25)
 console.log(peo, ceo)
-ttttttt
