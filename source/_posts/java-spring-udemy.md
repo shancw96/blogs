@@ -120,31 +120,19 @@ BaseballCoach myCoach = new BaseballCoach(myFortuneService)
 
 **这里的车配件就是各种依赖，你做出选择就是在进行依赖注入**
 
-#### code example:
+#### constructor injection
 
-**自定义依赖**
+配置 bean
 
-```java
-// Fortune.java (interface)
-package com.shancw.springdemo;
-
-public interface FortuneService {
-    public String getFortune();
-}
-
-// HappyFortuneService
-package com.shancw.springdemo;
-
-public class HappyFortuneService implements FortuneService{
-    @Override
-    public String getFortune() {
-        return "Today is lucky day";
-    }
-}
-
+```xml
+<!-- Define your beans here -->
+<bean id="myFortuneService" class="com.shancw.springdemo.HappyFortuneService"></bean>
+<bean id="myCoach" class="com.shancw.springdemo.BaseballCoach">
++    <constructor-arg ref="myFortuneService"></constructor-arg>
+</bean>
 ```
 
-**依赖注入**
+文件使用
 
 ```java
 // BaseballCoach.java
@@ -157,25 +145,45 @@ public class BaseballCoach implements Coach {
     public BaseballCoach(FortuneService theFortuneService) {
         fortuneService = theFortuneService;
     }
-    @Override
-    public String getDailyWorkout() {
-        return "spend 30 min on batting practise";
-    }
 }
 
 ```
 
-**配置文件**
-applicationContext.xml
+#### Setter Injection
+
+配置 bean
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans>
-    <!-- Define your beans here -->
-    <bean id="myFortuneService" class="com.shancw.springdemo.HappyFortuneService"></bean>
-    <bean id="myCoach" class="com.shancw.springdemo.BaseballCoach">
-        <!-- !!!! -->
-        <constructor-arg ref="myFortuneService"></constructor-arg>
-    </bean>
-</beans>
+<!-- 服务 -->
+<bean id="myFortuneService" class="com.shancw.springdemo.HappyFortuneService"></bean>
+<!-- setter service
+    id 为 bean 对象的名称
+    class 为文件class名称
+    CircketCoach myCircketCoach = new CircketCoach()
+ -->
+<bean id="myCircketCoach" class="com.shancw.springdemo.CircketCoach">
+    <!-- 配置 setter injection
+        name 为需要注入的属性名称
+        ref 为需要调用的bean 名称
+        myCircketCoach.setFortuneService(myFortuneService)
+    -->
+    <property name="fortuneService" ref="myFortuneService"></property>
+</bean>
 ```
+
+文件使用
+
+```java
+public class CircleCoach {
+    ...
+    private FortuneService fortuneService;
+    ...
+
+    // setter injection
+    public void setFortuneService(FortuneService fortuneService) {
+        this.fortuneService = fortuneService;
+    }
+}
+```
+
+<img src="setter-injection.png">
