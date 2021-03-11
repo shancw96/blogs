@@ -1,5 +1,5 @@
 ---
-title: Spring-learn-Spring Container
+title: Spring-learn -> beans
 categories: [Java]
 tags: [Spring]
 toc: true
@@ -206,3 +206,57 @@ public class CircleCoach {
 ```xml
 <property name="emailAddress" value="shancw1996@gmail.com"></property>
 ```
+
+## Bean lifeCycle 和 scope
+
+### bean scope
+
+Spring 的 Bean 默认情况下都是单例模式，但是可以通过 scope 属性进行配置，配置项如下
+
+| scope          | Description                                    |
+| -------------- | ---------------------------------------------- |
+| singleton      | 单例模式，默认 scope                           |
+| prototype      | 每个 container 调用都会创建一个新的 bean       |
+| request        | 这个 bean 仅对 HTTP 请求生效                   |
+| session        | 这个 bean 仅对 HTTP web session 生效           |
+| global-session | 这个 bean 仅对一个全局的 HTTP web session 生效 |
+
+```xml
+<beans ...>
+    <bean id="myCoach" class="com.shancw.springdemo.TrackCoach" scope="singleton"></bean>
+</beans>
+```
+
+### bean Lifecycle
+
+<img src="bean-lifecycle.png"  alt="bean-lifecycle">
+
+bean 配置
+
+```xml
+<beans>
+    <bean id="myCoach" class="com.shancw.springdemo.TrackCoach" init-method="doMyStartupStuff" destroy-method="clearMyStuff">
+</beans>
+```
+
+init-methods 和 destroy-method 名称没有任何限制，但是不能传入参数。
+
+java 代码编写
+
+```java
+public class TrackCoach {
+    ...
+
+    // init-method
+    public void doMyStartupStuff() {
+        // write you code here
+    }
+
+    // destroy-method
+    public void clearMyStuff() {
+        // write you code here
+    }
+}
+```
+
+**_For "prototype" scoped beans, Spring does not call the destroy method. Gasp! _**
