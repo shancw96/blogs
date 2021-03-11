@@ -1,5 +1,5 @@
 ---
-title: Spring-learn -> beans
+title: Spring-learn -> beans与IoC
 categories: [Java]
 tags: [Spring]
 toc: true
