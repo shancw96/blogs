@@ -1,28 +1,26 @@
 ---
-title: Spring-learn-IoC
+title: Spring-learn-Spring Container
 categories: [Java]
 tags: [Spring]
 toc: true
 date: 2021/3/8
 ---
 
-## Spring Container
-
 - 主要功能：
   - 创建和管理对象(Inversion of Control)
   - 为对象注入依赖(Dependency Injection)
 
-### Spring Ioc (Inversion of Control 控制反转)
+## Spring Ioc (Inversion of Control 控制反转)
 
 <img src="Spring-container.png" alt="Spring inversion of control">
 
-#### 配置 Spring 容器(spring container)
+### 配置 Spring 容器(spring container)
 
 - XML 文件：过时的方法
 - Java annotation: java 注释
 - Java Source code
 
-### Spring 开发流程
+## Spring 开发流程
 
 1. 配置 Spring Beans
 
@@ -80,7 +78,7 @@ public class HelloSpringApp {
 </beans>
 ```
 
-### FAQ: 什么是 Spring Bean?
+## FAQ: 什么是 Spring Bean?
 
 Spring Bean 就是一个由 Spring 容器创建的 Java 对象。
 
@@ -113,14 +111,14 @@ BaseballCoach myCoach = new BaseballCoach(myFortuneService)
 
 <img src="ioc.jpg">
 
-### Dependency Injection 依赖注入
+## Dependency Injection 依赖注入
 
 <img src="dependence-injection.jpg">
 你要买辆车，这辆车在工厂里制造，厂家直销，你必须要和工厂直接说出需求。在工厂里有各种各样不同的配件，比如引擎，椅子，方向盘等等。你只需要做出选择，这些配件就会由工程师组装在车上。
 
 **这里的车配件就是各种依赖，你做出选择就是在进行依赖注入**
 
-#### constructor injection
+### constructor injection
 
 配置 bean
 
@@ -149,7 +147,7 @@ public class BaseballCoach implements Coach {
 
 ```
 
-#### Setter Injection
+### Setter Injection
 
 配置 bean
 
@@ -187,3 +185,24 @@ public class CircleCoach {
 ```
 
 <img src="setter-injection.png">
+
+### Literal Values injection 字段注入
+
+1. 为 injection 创建 setter methods
+
+```java
+public class CircleCoach {
+
+    private String emailAddress;
+
+    public void setEmailAddress(String address) {
+        this.emailAddress = address;
+    }
+}
+```
+
+2. 在 Spring 配置文件中配置注入
+
+```xml
+<property name="emailAddress" value="shancw1996@gmail.com"></property>
+```
