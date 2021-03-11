@@ -10,16 +10,6 @@ date: 2021/3/8
   - 创建和管理对象(Inversion of Control)
   - 为对象注入依赖(Dependency Injection)
 
-## Spring Ioc (Inversion of Control 控制反转)
-
-<img src="Spring-container.png" alt="Spring inversion of control">
-
-### 配置 Spring 容器(spring container)
-
-- XML 文件：过时的方法
-- Java annotation: java 注释
-- Java Source code
-
 ## Spring 开发流程
 
 1. 配置 Spring Beans
