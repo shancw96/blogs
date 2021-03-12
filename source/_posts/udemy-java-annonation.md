@@ -37,7 +37,7 @@ public String getDailyWorkout() {
 
 * 如果存在 annotation，那么会自动在 Spring 容器中注册 annotation 对应的 bean
 
-## write code！！！
+## @Component
 
 ### 在 Spring 配置文件中启用 component Scanning
 
@@ -64,3 +64,25 @@ public class TennisCoach implements Coach {
 ```java
 Coach theCoach = context.getBean("thatSillyCoach", Coach.class);
 ```
+
+### 默认名称
+
+如果不指定 bean id 那么 spring 会自动生成一个默认的 bean id 就是类名
+
+```java
+@Component //TennisCoach 是bean id
+public class TennisCoach implements Coach {
+  @Override
+  public String getDailyWorkout() {
+    return "practice your backend volley"
+  }
+}
+```
+
+## @Autowiring
+
+- 构造函数注入 construction injection
+- setter 注入 setter injection
+- 字段注入 field injection
+
+原始的注入方式可以参看前一篇文章
