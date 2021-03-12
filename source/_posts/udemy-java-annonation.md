@@ -85,4 +85,4 @@ public class TennisCoach implements Coach {
 - setter 注入 setter injection
 - 字段注入 field injection
 
-原始的注入方式可以参看前一篇文章
+原始的注入方式可以参看: [前一篇文章](http://blog.limiaomiao.site/2021/03/08/udemy-java-spring-beans/)
