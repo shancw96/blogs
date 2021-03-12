@@ -1,5 +1,5 @@
 ---
-title: Spring-learn -> 「IoC injection」 @Component 和 @AutoWired
+title: Spring-learn -> 「IoC injection」 @Component, @AutoWired,@Scope
 categories: [java]
 tags: [Spring]
 toc: true
