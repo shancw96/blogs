@@ -1,5 +1,5 @@
 ---
-title: Spring-learn -> annotation
+title: Spring-learn -> 「IoC injection」 @Component 和 @AutoWired
 categories: [java]
 tags: [Spring]
 toc: true
@@ -79,10 +79,124 @@ public class TennisCoach implements Coach {
 }
 ```
 
-## @Autowiring
+## Autowiring 自动绑定
 
-- 构造函数注入 construction injection
-- setter 注入 setter injection
-- 字段注入 field injection
+> 原始的注入方式可以参看: [前一篇文章](http://blog.limiaomiao.site/2021/03/08/udemy-java-spring-beans/)
 
-原始的注入方式可以参看: [前一篇文章](http://blog.limiaomiao.site/2021/03/08/udemy-java-spring-beans/)
+### 构造函数注入 construction injection
+
+1. 定义依赖接口和类
+
+```java
+// FortuneService.java
+public interface FortuneService {
+  public String getFortune();
+}
+
+// happyFortuneService.java
+@Component
+public class HappyFortuneService implements FortuneService {
+  public String getFortune() {
+    return "Today is your lucky day!"
+  }
+}
+```
+
+2. 在类中创造一个构造函数用于注入
+
+```java
+@Component
+public class TennisCoach implements Coach {
+  private FortuneService fortuneService;
+  public TennisCoach(FortuneService theFortuneService) {
+    fortuneService = theFortuneService
+  }
+}
+```
+
+3. 在类的构造函数中使用@AutoWired
+
+```java
+@Component
+public class TennisCoach implements Coach {
+  private FortuneService fortuneService;
+
++ @AutoWired
+  public TennisCoach(FortuneService theFortuneService) {
+    fortuneService = theFortuneService
+  }
+}
+```
+
+**theFortuneService 是如何实现正确传入 HappyFortuneService 实例的？**
+Spring 会扫描 class，遇到带有@Component 注解的，会生成对应的 bean。
+
+上述 HappyFortuneService 生成了一个 implement FortuneService
+的 bean，
+
+在 TennisCoach 中遇到了@AutoWired 注解，会传入实现了 FortuneService 接口的 实例，此处就是 HappyFortuneService
+
+**如果存在多个 class implement 了 FortuneService，怎么处理**
+
+<img src="multi-implements.png" />
+
+使用`@Qualifier` 注解
+
+```java
+@Component
+public class TennisCoach implements Coach {
+  private FortuneService fortuneService;
+
++ @AutoWired
++ @Qualifier('happyFortuneService') // 想要指定的Bean Id
+  public TennisCoach(FortuneService theFortuneService) {
+    fortuneService = theFortuneService
+  }
+}
+```
+
+**为什么在构造函数上注释(committed)了@AutoWired 字段，还是可以正常执行自动绑定？**
+
+```java
+//@Autowired
+public TennisCoach(FortuneService theFortuneService) {
+    System.out.println(" theFortuneService " + theFortuneService);
+    fortuneService = theFortuneService;
+}
+```
+
+从 Spring 4.3 开始，如果目标 bean 仅定义一个以其开头的构造函数 @AutoWired 注解在构造函数上没有必要存在了。个人还是推荐写@AutoWired 因为更有可读性
+
+[DOC reference](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-autowired-annotation)
+
+### setter 注入 setter injection
+
+```java
+// FortuneService.java
+@Component
+public class TennisCoach implements Coach {
+  private FortuneService fortuneService;
+
++ @AutoWired
+  public void setFortuneService(FortuneService theFortuneService) {
+    this.fortuneService = theFortuneService // 此处有this
+  }
+}
+```
+
+### 字段注入 field injection
+
+利用了 java 的反射技术，不再需要 setter 方法
+
+```java
+@Component
+public class TennisCoach implements Coach {
++ @AutoWired
+  private FortuneService fortuneService;
+
+}
+```
+
+### 3 种 injection 用哪种
+
+喜欢哪个就用哪个，对我来说，field injection 最好
