@@ -16,6 +16,7 @@ date: 2021/3/11
 
 如 `@Override`，告诉编译器，这个方法会覆写 implement 或者 extends 的方法，于是在编译阶段，编译器会检查 override 是否正确
 
+ <!--more--> 
 ```java
 @Override
 public String getDailyWorkout() {

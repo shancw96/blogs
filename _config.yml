@@ -8,7 +8,7 @@ subtitle: '知其所以然'
 description: ''
 keywords: [前端]
 author: ShanCW
-language: zh-CN
+language: zh-Hans
 timezone: ''
 
 # URL
@@ -93,7 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-# theme: next
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -112,3 +112,23 @@ search:
   limit: 10000
 
 favicon: /16.ico
+
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: live2d-widget-model-shizuku # 桌 妹
+    # use: live2d-widget-model-hijiki # 小猫咪
+  display:
+    position: right
+    width: 200
+    height: 400
+    hOffset: 60
+    vOffset: -20
+  mobile:
+    show: true

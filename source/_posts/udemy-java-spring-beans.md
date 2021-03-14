@@ -10,6 +10,7 @@ date: 2021/3/8
   - 创建和管理对象(Inversion of Control)
   - 为对象注入依赖(Dependency Injection)
 
+ <!--more--> 
 ## Spring 开发流程
 
 1. 配置 Spring Beans
