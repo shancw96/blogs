@@ -10,8 +10,6 @@ date: 2021/3/14
 
 <!-- more -->
 
-## 开发流程
-
 ### Spring Configuration
 1. 创建Java 类并使用@Configuration 注释
 
