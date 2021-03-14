@@ -1,6 +1,6 @@
 ---
 title: Java persistence API 介绍
-categories: [java]
+categories: [Java]
 tags: [database]
 toc: true
 date: 2020/3/8

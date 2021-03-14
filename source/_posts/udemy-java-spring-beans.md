@@ -1,5 +1,5 @@
 ---
-title: Spring-learn -> beans与IoC
+title: Spring-learn -> 1. XML 文件实现依赖注入
 categories: [Java]
 tags: [Spring]
 toc: true

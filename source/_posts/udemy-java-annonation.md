@@ -1,20 +1,12 @@
 ---
-title: Spring-learn -> 「IoC injection」 @Component, @AutoWired,@Scope
-categories: [java]
+title: Spring-learn ->2. @Component, @AutoWired，@Scope实现依赖注入
+categories: [Java]
 tags: [Spring]
 toc: true
 date: 2021/3/11
 ---
 
-## 什么是 Java 的 annotation
-
-- 被加到 Java 类上的 特殊的 label/marker
-
-* 给类提供元数据(meta-data)
-
-- 在编译阶段加载 或者 在运行时用于特殊处理
-
-如 `@Override`，告诉编译器，这个方法会覆写 implement 或者 extends 的方法，于是在编译阶段，编译器会检查 override 是否正确
+这篇文章介绍了使用annotation 来简化 bean 配置的方法，@Component 启用spring class扫描，@AutoWired 实现自动绑定，@Scope 实现控制bean的生命周期和作用域
 
  <!--more--> 
 ```java
@@ -201,3 +193,15 @@ public class TennisCoach implements Coach {
 ### 3 种 injection 用哪种
 
 喜欢哪个就用哪个，对我来说，field injection 最好
+
+## @scope
+scope 有如下几种选项： singleton, prototype, request, session, global session。具体使用参考[Spring-learn -> beans与IoC 4.bean lifeCycle 和 scope](http://blog.limiaomiao.site/2021/03/08/udemy-java-spring-beans)
+
+通过@scope 简化后写法如下
+```java
+@Component
+@Scope("singleton")
+public class TennisCoach implements Coach {
+  ...
+}
+```
