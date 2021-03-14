@@ -93,7 +93,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: maupassant
+# theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -111,4 +111,4 @@ search:
   format: html
   limit: 10000
 
-favicon: /favicon.ico
+favicon: /16.ico

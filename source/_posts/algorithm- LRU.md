@@ -1,7 +1,9 @@
 ---
 title: 算法 - LRU
 categories: [算法]
-tags: [链表]
+tags:
+  - Testing
+  - Another Tag
 toc: true
 date: 2020/6/17
 ---
