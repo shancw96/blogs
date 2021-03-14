@@ -13,32 +13,31 @@ date: 2021/3/14
 ### Spring Configuration
 1. 创建Java 类并使用@Configuration 注释
 
-```java
-@Configuration
-public class SportConfig {
-
-}
-
-```
-2. 添加 组件扫描 component scanning 支持@ComponentScan 
-
-```java
+  ```java
   @Configuration
-+ @ComponentScan("com.shancw.spring.demo")
   public class SportConfig {
 
   }
 
-```
+  ```
+2. 添加 组件扫描 component scanning 支持@ComponentScan 
+  ```java
+    @Configuration
+  + @ComponentScan("com.shancw.spring.demo")
+    public class SportConfig {
+
+    }
+
+  ```
 3. 读取Spring java 配置类
-```java
-AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SportCofig.class);
-```
+  ```java
+  AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SportCofig.class);
+  ```
 4. 从spring 容器中获取相应的bean
 
-```java
-Coach theCoach = context.getBean("tennisCoach", Coach.class)
-```
+  ```java
+  Coach theCoach = context.getBean("tennisCoach", Coach.class)
+  ```
 
 ### Define Spring Beans
 
