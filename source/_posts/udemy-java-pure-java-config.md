@@ -44,26 +44,26 @@ Coach theCoach = context.getBean("tennisCoach", Coach.class)
 
 **手动生成实例并返回**
 
-1. Define method to expose Bean && 2. Inject Bean dependencies
-```java
-  @Configuration
-  @ComponentScan("com.shancw.spring.demo")
-  public class SportConfig {
-+   @Bean //swimCoach 方法名将会变成bean id
-+   @public Coach swimCoach() {
-+     SwimCoach mySwimCoach = new SwimCoach();
-+     return mySwimCoach; 
+1. Define method to expose Bean &&  Inject Bean dependencies
+  ```java
+    @Configuration
+    @ComponentScan("com.shancw.spring.demo")
+    public class SportConfig {
+  +   @Bean //swimCoach 方法名将会变成bean id
+  +   @public Coach swimCoach() {
+  +     SwimCoach mySwimCoach = new SwimCoach();
+  +     return mySwimCoach; 
+      }
     }
-  }
 
-```
+  ```
 
 3. 读取Spring java 配置类
-```java
-AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SportCofig.class);
-```
+  ```java
+  AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SportCofig.class);
+  ```
 4. Retrieve bean from Spring container 
 
-```java
-Coach theCoach = context.getBean("swimCoach", Coach.class)
-```
+  ```java
+  Coach theCoach = context.getBean("swimCoach", Coach.class)
+  ```
