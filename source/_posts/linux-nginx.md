@@ -1,7 +1,7 @@
 ---
 title: nginx 安装与简单使用
 categories: [linux]
-tags: []
+tags: [nginx]
 toc: true
 date: 2021/3/1
 ---
@@ -102,12 +102,47 @@ Context:	location, if in location, limit_except
 
 应用：[nginx 根据不同 prefix 转接 请求, 实现一个服务器 + 域名托管多个应用服务](https://github.com/shancw96/tech-basis/tree/master/nginx)
 
-### 关于nginx location 的更多使用
+### 关于 nginx location 的更多使用
 
-[一文弄懂Nginx的location匹配](https://segmentfault.com/a/1190000013267839)
+[一文弄懂 Nginx 的 location 匹配](https://segmentfault.com/a/1190000013267839)
 
 ## nginx 下 cache-control 配置
 
 [相关配置介绍](https://www.cnblogs.com/sfnz/p/5383647.html)
 
-使用例子：[blog 下配置指定路径的cache - 3. 2d live看板娘设置 -3.4优化](http://blog.limiaomiao.site/2021/03/14/next-usage/)
+使用例子：[blog 下配置指定路径的 cache - 3. 2d live 看板娘设置 -3.4 优化](http://blog.limiaomiao.site/2021/03/14/next-usage/)
+
+## nginx 配置 https
+
+http 转发
+
+```conf
+server {
+    listen 80;
+    server_name blog.shancw.net;
+    return 301 https://$server_name$request_uri;
+}
+```
+
+https 配置
+
+```conf
+server {
+    # ****** start 配置443端口 + 证书 ********
+    listen 443 ssl;
+    server_name blog.shancw.net;
+	  ssl_certificate    /etc/nginx/https_cert/1_blog.shancw.net_bundle.crt;
+    ssl_certificate_key /etc/nginx/https_cert/2_blog.shancw.net.key;
+    # ******** end *********
+    root /home/shancw/Project/blogs/public;   #资源文件目录
+    index index.html index.htm index.nginx-debian.html;
+
+    location ~ \.(gif|jpg|jpeg|png|bmp|ico)$ {
+        expires 30d;
+    }
+
+    location ~* live2dw.* {
+      add_header    Cache-Control  "max-age=31536000, public";
+    }
+}
+```
