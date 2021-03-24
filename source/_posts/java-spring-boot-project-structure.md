@@ -7,10 +7,12 @@ date: 2021/3/24
 ---
 
 这篇文章介绍了 Spring Boot 项目的分层 和 具体目录结构
-![spring boot的项目结构](/images/spring-boot-structure.png)
-![sprint boot分层](/images/spring-boot-data-flow.png)
 
 <!-- more -->
+
+![spring boot的项目结构](/images/spring-boot-structure.png)
+
+![sprint boot分层](/images/spring-boot-data-flow.png)
 
 ## Models & DTOs
 
