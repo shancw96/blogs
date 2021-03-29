@@ -297,7 +297,8 @@ font:
     external: true
     family:
     size:
-
+    
+  display_updated: true
 
 # ---------------------------------------------------------------
 # Third Party Services Settings
