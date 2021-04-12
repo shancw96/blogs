@@ -4,6 +4,7 @@ categories: [java]
 tags: [函数式编程]
 toc: true
 date: 2021/4/11
+updated: 2021/4/12
 ---
 
 一直有争论到底是函数式好还是面向对象好。

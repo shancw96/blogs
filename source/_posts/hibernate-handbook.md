@@ -4,7 +4,12 @@ categories: [java]
 tags: [hibernate]
 toc: true
 date: 2021/4/6
+updated: 2021/4/12
 ---
+
+这篇文章介绍了 hibernate 的日常使用
+
+<!-- more -->
 
 JDBC: java database connectivity
 
