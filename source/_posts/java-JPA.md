@@ -1,5 +1,5 @@
 ---
-title: Java persistence API 介绍
+title: 【长期更新】spring-data-jpa 使用
 categories: [Java]
 tags: [database]
 toc: true
