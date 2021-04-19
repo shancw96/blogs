@@ -1,22 +1,24 @@
 ---
-title: 博客项目开发知识点汇集
-categories: [temp]
-tags: []
+title: Spring MVC 中Service 的存在原因和使用
+categories: [Java]
+tags: [spring-boot]
 toc: true
-date: 2021/4/18
+date: 2021/4/19
 ---
 
 # 什么是 Service 层
 
-The service layer is there to provide logic to operate on the data sent to and from the DAO and the client. Very often these 2 pieces will be bundled together into the same module, and occasionally into the same code, but you’ll still see them as distinct logical entities.
+Service 层位于 repository 和 Controller 之间。负责处理所有的业务逻辑。
 
 Controller 层像是一个服务员，他把客人（前端）点的菜（数据、请求的类型等）进行汇总什么口味、咸淡、量的多少，交给厨师长（Service 层），厨师长则告诉沾板厨师（Dao 1）、汤料房（Dao 2）、配菜厨师（Dao 3）等（统称 Dao 层）我需要什么样的半成品，副厨们（Dao 层）就负责完成厨师长（Service）交代的任务。
 
-Controller-->service 接口-->serviceImpl-->dao 接口-->daoImpl-->mapper-->db
+Controller--> Service (service 接口-->serviceImpl) -->repository 接口-->db
+
+<!-- more -->
 
 # 如何设计 service 层
 
-Service 层主要负责业务模块的逻辑应用设计。**先设计放接口的类，再创建实现的类**，然后在配置文件中进行配置其实现的关联。service 层调用 dao 层接口，接收 dao 层返回的数据，完成项目的基本功能设计。
+Service 层主要负责业务模块的逻辑应用设计。**先设计放接口的类，再创建实现的类**，然后在配置文件中进行配置其实现的关联。service 层调用 repository 接口，接收 repository 返回的数据，完成项目的基本功能设计。
 
 ## 代码设计方式
 
@@ -126,6 +128,8 @@ public class UserController extends BaseController {
 ```
 
 平时我们一直说，Controller 一定要尽量少的逻辑，其实反过来说，是指 Service 的逻辑应该高内聚，这样 Controller 如 Service 的耦合自然就是最低，Controller 真真正正的坐到，不用理会 Service 的实现，只需要调用即可。
+
+# 参考文章：
 
 - [\*如何设计 Service 层](https://my.oschina.net/bingzhong/blog/1559856)
 

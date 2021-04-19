@@ -1,9 +1,9 @@
 ---
 title: 【TODO】Spring-boot 项目全局状态返回
 categories: [Java]
-tags: [database]
+tags: [spring-boot]
 toc: true
-date: 2020/3/8
+date: 2020/4/19
 ---
 
 正常请求使用@ResponseBody(RestController 注解自动设置) 或者 ResponseEntity 详细设置响应头和状态码
