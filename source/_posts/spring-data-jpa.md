@@ -1,7 +1,7 @@
 ---
 title: 【长期更新】spring-data-jpa 使用
 categories: [Java]
-tags: [database]
+tags: [database, orm]
 toc: true
 date: 2020/3/8
 ---
@@ -237,3 +237,36 @@ public class University {
 
 1. 和其他字段一起加载 FetchType.EAGER
 2. 按需加载，当调用 university's getStudents() 方法的时候加载 FetchType.Lazy
+
+## 为什么在 spring 项目中 Entity 需要实现 Serializable?
+
+> 参考文章: [Java 对象为啥要实现 Serializable 接口？](https://mp.weixin.qq.com/s/Zpb2OuZxJpWX2mow3qd-xg#cmid=307770)
+
+Serializable 是 java.io 包中定义的、用于实现 Java 类的序列化操作而提供的一个语义级别的接口。
+
+### 有什么用？
+
+实现了 Serializable 接口的类可以被 ObjectOutputStream 转换为字节流，同时也可以通过 ObjectInputStream 再将其解析为对象
+
+### 详细解释
+
+无论什么编程语言，其**底层涉及 IO 操作的部分还是由操作系统其帮其完成的，而底层 IO 操作都是以字节流的方式进行的**，所以写操作都涉及将编程语言数据类型转换为字节流，而读操作则又涉及将字节流转化为编程语言类型的特定数据类型。
+
+而 Java 作为一门面向对象的编程语言，为了完成对象数据的读写操作，通过 Serializable 接口来让 JVM 知道在进行 IO 操作时如何将对象数据转换为字节流，以及如何将字节流数据转换为特定的对。
+
+### 主要使用场景
+
+1. 需要把内存中的对象状态数据保存到一个文件或者数据库，例如 ORM 框架编写 entity 将其保存到数据库。
+2. 网络通信时需要用套接字在网络中传送对象时，JSON
+
+### 序列化与反序列化的唯一标识: serialVersionUID
+
+如果我们在序列化中没有显示地声明 serialVersionUID，则序列化运行时将会根据该类的各个方面计算该类默认的 serialVersionUID 值。但是，Java 官方强烈建议所有要序列化的类都显示地声明 serialVersionUID 字段。
+
+我们在实现 Serializable 接口的时候，要去尽量显示地定义义 serialVersionUID，如：
+
+```java
+private static final long serialVersionUID = 1L;
+```
+
+在反序列化的过程中，如果接收方为对象加载了一个类，如果该对象的 serialVersionUID 与对应持久化时的类不同，那么反序列化的过程中将会导致 InvalidClassException 异常。
