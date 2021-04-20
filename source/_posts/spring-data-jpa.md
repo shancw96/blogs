@@ -3,7 +3,8 @@ title: 【长期更新】spring-data-jpa 使用
 categories: [Java]
 tags: [database, orm]
 toc: true
-date: 2020/3/8
+date: 2021/3/8
+updated: 2021/4/20
 ---
 
 JPA 允许开发者直接和 java 对象交互，而不是通过 SQL 语句。
