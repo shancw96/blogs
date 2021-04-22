@@ -1,7 +1,7 @@
 ---
 title: Nuxt 基础项目构建
-categories: [Vue]
-tags: []
+categories: [前端]
+tags: [vue, implement]
 toc: true
 date: 2020/9/5
 ---

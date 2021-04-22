@@ -1,6 +1,6 @@
 ---
 title: nginx 安装与简单使用
-categories: [linux]
+categories: [运维]
 tags: [nginx]
 toc: true
 date: 2021/3/1

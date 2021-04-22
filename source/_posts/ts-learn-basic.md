@@ -1,7 +1,7 @@
 ---
 title: ts 基础
-categories: [ts]
-tags: []
+categories: [前端]
+tags: [ts]
 toc: true
 date: 2020/12/03
 ---

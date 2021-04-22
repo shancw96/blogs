@@ -1,7 +1,7 @@
 ---
 title: 跨域请求 与 前后端设置
-categories: [java]
-tags: [Spring Boot]
+categories: [后端]
+tags: [Spring Boot, CORS]
 toc: true
 date: 2021/3/29
 ---

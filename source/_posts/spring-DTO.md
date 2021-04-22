@@ -1,7 +1,7 @@
 ---
 title: 什么是DTO，使用场景是什么?
-categories: [Java]
-tags: [Spring]
+categories: [后端]
+tags: [Spring, database, ORM]
 toc: true
 date: 2021/4/19
 updated: 2021/4/22

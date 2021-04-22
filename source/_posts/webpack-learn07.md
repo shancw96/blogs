@@ -1,6 +1,6 @@
 ---
 title: webpack - sourceMap & 公共资源提取
-categories: [工程化]
+categories: [前端]
 tags: [webpack]
 toc: true
 date: 2020/10/7

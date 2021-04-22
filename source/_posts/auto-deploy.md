@@ -1,6 +1,6 @@
 ---
 title: 使用github webhook自动部署hexo
-categories: []
+categories: [杂项]
 tags: []
 toc: true
 date: 2021/3/1

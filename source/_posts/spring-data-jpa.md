@@ -1,7 +1,7 @@
 ---
 title: 【长期更新】spring-data-jpa 使用
-categories: [Java]
-tags: [database, orm]
+categories: [后端]
+tags: [database, ORM]
 toc: true
 date: 2021/3/8
 updated: 2021/4/20

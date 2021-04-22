@@ -1,7 +1,7 @@
 ---
 title: svgStr To Image (based on konva)
-categories: [utils]
-tags:
+categories: [前端]
+tags: [implement]
 toc: true
 date: 2020/6/19
 ---

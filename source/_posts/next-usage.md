@@ -1,6 +1,6 @@
 ---
 title: 自定义博客
-categories: []
+categories: [杂项]
 tags: []
 toc: true
 date: 2021/3/14

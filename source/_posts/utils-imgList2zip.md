@@ -1,7 +1,7 @@
 ---
 title: 图片批量压缩下载
-categories: [utils]
-tags:
+categories: [前端]
+tags: [implement]
 toc: true
 date: 2020/9/8
 ---

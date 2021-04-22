@@ -1,6 +1,6 @@
 ---
 title: Spring Boot 常用annotation
-categories: [Java]
+categories: [后端]
 tags: [Spring Boot]
 toc: true
 date: 2021/3/7

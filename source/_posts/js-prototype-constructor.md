@@ -1,7 +1,7 @@
 ---
 title: 理清`constructor`，`[[prototype]]`, `prototype` 之间的区别
-categories: [js]
-tags: []
+categories: [前端]
+tags: [js]
 toc: true
 date: 2021/1/13
 ---

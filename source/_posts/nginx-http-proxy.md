@@ -1,6 +1,6 @@
 ---
 title: nginx http proxy 相关API 介绍
-categories: [工程化]
+categories: [运维]
 tags: [nginx]
 toc: true
 date: 2021/2/26

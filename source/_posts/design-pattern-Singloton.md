@@ -1,7 +1,7 @@
 ---
 title: 设计模式 - 单例
 categories: [设计模式]
-tags: []
+tags: [oop]
 toc: true
 date: 2021/1/31
 ---

@@ -1,7 +1,7 @@
 ---
 title: linux curl handbook
-categories: [linux]
-tags: []
+categories: [运维]
+tags: [linux]
 toc: true
 date: 2021/3/26
 ---

@@ -1,7 +1,7 @@
 ---
 title: 《算法》动态规划
 categories: [算法]
-tags: [DP]
+tags: [algorithm, DP]
 toc: true
 date: 2021/3/3
 ---

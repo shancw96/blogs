@@ -1,6 +1,6 @@
 ---
 title: webpack - 文件---指纹，压缩
-categories: [工程化]
+categories: [前端]
 tags: [webpack]
 toc: true
 date: 2020/10/5

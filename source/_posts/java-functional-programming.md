@@ -1,7 +1,7 @@
 ---
 title: FP in Java
-categories: [java]
-tags: [函数式编程]
+categories: [后端]
+tags: [fp]
 toc: true
 date: 2021/4/11
 updated: 2021/4/12

@@ -1,7 +1,7 @@
 ---
 title: Vue2 reactivity 解析
-categories: [Vue]
-tags: [implement]
+categories: [前端]
+tags: [implement, vue]
 toc: true
 date: 2021/2/19
 ---

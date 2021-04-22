@@ -1,7 +1,7 @@
 ---
 title: 数组随机排序
-categories: [utils]
-tags: []
+categories: [前端]
+tags: [implement]
 toc: true
 date: 2021/1/31
 ---

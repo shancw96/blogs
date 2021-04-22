@@ -1,7 +1,7 @@
 ---
 title: 【TODO】Spring-boot 项目全局状态返回
-categories: [Java]
-tags: [spring-boot]
+categories: [后端]
+tags: [Spring Boot]
 toc: true
 date: 2020/4/19
 ---

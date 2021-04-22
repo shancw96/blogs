@@ -1,7 +1,7 @@
 ---
 title: 使用lint-staged 优化团队开发体验
-categories: [工程化]
-tags: []
+categories: [前端]
+tags: [工程化]
 toc: true
 date: 2021/2/24
 ---

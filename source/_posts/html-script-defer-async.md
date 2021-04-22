@@ -1,6 +1,6 @@
 ---
 title: script - async, defer 区别
-categories: [html]
+categories: [前端]
 tags: []
 toc: true
 date: 2021/3/30

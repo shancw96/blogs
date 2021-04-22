@@ -1,7 +1,7 @@
 ---
 title: debounce & throttle
-categories: [JS]
-tags: []
+categories: [前端]
+tags: [implement]
 toc: true
 date: 2021/1/11
 ---

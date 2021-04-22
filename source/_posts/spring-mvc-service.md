@@ -1,7 +1,7 @@
 ---
 title: Spring MVC 中Service 的存在原因和使用
-categories: [Java]
-tags: [spring-boot]
+categories: [后端]
+tags: [Spring Boot]
 toc: true
 date: 2021/4/19
 ---
