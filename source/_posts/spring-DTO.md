@@ -4,6 +4,7 @@ categories: [Java]
 tags: [Spring]
 toc: true
 date: 2021/4/19
+updated: 2021/4/22
 ---
 
 # 什么是 DTO？
@@ -101,4 +102,75 @@ public class RoleServiceImpl implements RoleService {
         return roleMapper.toDto(roleRepository.findAll(sort));
     }
 }
+```
+
+BaseEntity & BaseDTO
+baseEntity：存放通用 字段/逻辑 的地方
+
+```java
+@Getter
+@Setter
+public class BaseDTO  implements Serializable {
+
+    private String createBy;
+
+    private String updatedBy;
+
+    private Timestamp createTime;
+
+    private Timestamp updateTime;
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        Field[] fields = this.getClass().getDeclaredFields();
+        try {
+            for (Field f : fields) {
+                f.setAccessible(true);
+                builder.append(f.getName(), f.get(this)).append("\n");
+            }
+        } catch (Exception e) {
+            builder.append("toString builder encounter an error");
+        }
+        return builder.toString();
+    }
+}
+
+@Getter
+@Setter
+@MappedSuperclass // 表明这个Entity 不直接持久化到mysql，会被其他的Entity继承。
+public class BaseEntity implements Serializable {
+
+    @CreatedBy
+    @Column(name = "create_by", updatable = false)
+    private String createBy;
+
+    @LastModifiedBy
+    @Column(name = "update_by")
+    private String updateBy;
+
+    @CreationTimestamp
+    @Column(name = "create_time", updatable = false)
+    private Timestamp createTime;
+
+    @UpdateTimestamp
+    @Column(name = "update_time")
+    private Timestamp updateTime;
+
+    @Override
+    public String toString() {
+        ToStringBuilder builder = new ToStringBuilder(this);
+        Field[] fields = this.getClass().getDeclaredFields();
+        try {
+            for (Field f : fields) {
+                f.setAccessible(true);
+                builder.append(f.getName(), f.get(this)).append("\n");
+            }
+        } catch (Exception e) {
+            builder.append("toString builder encounter an error");
+        }
+        return builder.toString();
+    }
+}
+
 ```
