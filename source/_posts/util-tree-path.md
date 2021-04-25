@@ -9,9 +9,95 @@ date: 2021/4/25
 使用方式
 
 ```js
+const mockTree = [
+  {
+    label: "一级 1",
+    id: "一级 1",
+    children: [
+      {
+        label: "二级 1-1",
+        id: "二级 1-1",
+        children: [
+          {
+            label: "三级 1-1-1三级",
+            id: "三级 1-1-1",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "一级 2",
+    id: "一级 2",
+    children: [
+      {
+        label: "二级 2-1",
+        id: "二级 2-1",
+        children: [
+          {
+            label: "三级 2-1-1",
+            id: "三级 2-1-1",
+          },
+        ],
+      },
+      {
+        label: "二级 2-2",
+        id: "二级 2-2",
+        children: [
+          {
+            label: "三级 2-2-1",
+            id: "三级 2-2-1",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "一级 3",
+    id: "一级 3",
+    children: [
+      {
+        label: "二级 3-1",
+        id: "二级 3-1",
+        children: [
+          {
+            label: "三级 3-1-1",
+            id: "三级 3-1-1",
+          },
+        ],
+      },
+      {
+        label: "二级 3-2",
+        id: "二级 3-2",
+        children: [
+          {
+            label: "三级 3-2-1",
+            id: "三级 3-2-1",
+          },
+        ],
+      },
+    ],
+  },
+];
 const defaultProps = { key: "id", children: "children" };
 const matchFn = (matchFn = (a, target) => a[defaultProps.key] === target);
-findPath(this.treeData, "二级 3-2", matchFn, defaultProps);
+findPath(mockTree, "二级 3-2", matchFn, defaultProps);
+
+// --------- 结果
+[
+  {
+    label: "一级 3",
+    id: "一级 3",
+    children: [...],
+  },
+  {
+    label: "二级 3-2",
+    id: "二级 3-2",
+    children: [...],
+  },
+]
+
+
 ```
 
 <!-- more -->
@@ -27,8 +113,7 @@ const mockTree = [
         id: "二级 1-1",
         children: [
           {
-            label:
-              "三级 1-1-1三级 1-1-1三级 1-1-1三级 1-1-1三级 1-1-1三级 1-1-1三级 1-1-1三级 1-1-1三级 1-1-1三级 1-1-1",
+            label: "三级 1-1-1三级",
             id: "三级 1-1-1",
           },
         ],
