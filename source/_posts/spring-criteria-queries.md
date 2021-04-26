@@ -8,6 +8,8 @@ date: 2021/4/25
 
 这篇文章包括了 queryDsl - JPA 的常用功能。
 
+<!-- more -->
+
 使用 queryDsl 在 JPA 中查询的通用模版
 
 ```java
@@ -16,8 +18,6 @@ queryFactory.selectFrom(customer)
   .where(...)
   .fetch();
 ```
-
-<!-- more -->
 
 - QCustomer: 配置 querydsl 后，自动生成的查询实体
 - queryFactory: JPAQueryFactory 实例。一般通过@Bean 全局配置
