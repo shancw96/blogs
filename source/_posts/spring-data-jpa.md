@@ -4,14 +4,13 @@ categories: [后端]
 tags: [database, ORM]
 toc: true
 date: 2021/3/8
-updated: 2021/4/20
 ---
 
 JPA 允许开发者直接和 java 对象交互，而不是通过 SQL 语句。
 
-java 对象与 数据库表的相互映射 叫做 对象关系映射(ORM - object relational mapping)。JPA 是一种 ORM 的一种。通过 JPA，开发者能够从数据库数据映射，存储，更新，恢复数据。
+java 对象与 数据库表的相互映射 叫做 对象关系映射(ORM - object relational mapping)。JPA 是 ORM 框架的一种规范。通过 JPA，开发者能够从数据库数据映射，存储，更新，恢复数据。
 
-JPA 是一种规范，它有几种实现方式。最受欢迎的是[Hibernate](https://hibernate.org/)，EclipseLink and Apache OpenJPA
+JPA 是一种规范，它有几种实现方式: [Hibernate](https://hibernate.org/)，EclipseLink and Apache OpenJPA
 
 > 译者注: EclipseLink and Apache OpenJPA 现在已经处于淘汰状态
 
@@ -25,7 +24,13 @@ JPA 是一种规范，它有几种实现方式。最受欢迎的是[Hibernate](h
 
 一个应该被数据库保存的类，它必须通过 `javax.persistence.Entity`进行注解，一张表对应一个实体。
 
-所有的实体类必须定义一个主键，并且有一个无参数的构造方法或者不是 final 修饰的类。
+所有的实体类必须定义一个主键，并且有一个<u>无参数的构造方法</u>或者不是 final 修饰的类。
+
+> [hibernate 为什么持久化类时必须提供一个不带参数的默认构造函数](https://www.cnblogs.com/langjunnan/p/6035188.html)
+> 因为 hibernate 框架会调用这个默认构造方法来构造实例对象。。
+> 即 Class 类的 newInstance 方法 这个方法就是通过调用默认构造方法来创建实例对象的 ，
+> 另外再提醒一点，如果你没有提供任何构造方法，虚拟机会自动提供默认构造方法（无参构造器），
+> 但是如果你提供了其他有参数的构造方法的话，虚拟机就不再为你提供默认构造方法，这时必须手动把无参构造器写在代码里
 
 通过@GeneratedValue 能够在数据库中自动生成主键
 
@@ -117,7 +122,7 @@ public class Laptop {
 生成的 ER 图如下，此时会产生一个中间表 student_laptop，用于关联。
 ![](/images/hibernate/oneToMany.png)
 
-如果不想生成中间表，则可以使用 mappedBy 或者是 Join Column。
+如果不想生成中间表，将 student 的 id 交给 laptop 来维护，则可以使用 mappedBy 或者是 Join Column。
 
 使用 mappedBy 将当前的 student 映射到每一台 laptop 上。
 
