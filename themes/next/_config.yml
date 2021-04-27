@@ -167,7 +167,7 @@ sidebar:
   b2t: false
 
   # Scroll percent label in b2t button
-  scrollpercent: false
+  scrollpercent: true
   
   # Enable sidebar on narrow view
   onmobile: false
@@ -196,7 +196,7 @@ auto_excerpt:
 post_meta:
   item_text: true
   created_at: true
-  updated_at: false
+  updated_at: true
   categories: true
 
 # Post wordcount display settings
@@ -298,7 +298,7 @@ font:
     family:
     size:
     
-  display_updated: true
+  # display_updated: true
 
 # ---------------------------------------------------------------
 # Third Party Services Settings
@@ -468,7 +468,7 @@ calendar:
   enable: false
   calendar_id: <required>
   api_key: <required>
-  orderBy: startTime
+  orderBy: updated
   offsetMax: 24
   offsetMin: 4
   timeZone:
