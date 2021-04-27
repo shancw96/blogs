@@ -4,6 +4,7 @@ categories: [后端]
 tags: [database, ORM]
 toc: true
 date: 2021/3/8
+top: 100
 ---
 
 JPA 允许开发者直接和 java 对象交互，而不是通过 SQL 语句。
