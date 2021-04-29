@@ -44,11 +44,11 @@ public static <T> Optional<T> ofNullable(T value) {
 
 - isEmpty 如果为空返回 true
 
-## 链式操作
-
 - ifPresent: 如果存在则执行 action
 
 - ifPresentOrElse: 如果存在则执行 actionA，否则执行 actionB 处理 null 情况
+
+## 链式操作
 
 - filter:
 
@@ -103,23 +103,24 @@ public static <T> Optional<T> ofNullable(T value) {
   ```
 
 * orElse: 如果存在 T,则返回，不存在就返回提供的值
-
-```java
-public T orElse(T other) {
-        return value != null ? value : other;
-    }
-```
+  ```java
+  public T orElse(T other) {
+          return value != null ? value : other;
+      }
+  ```
 
 - orElseThrow: 如果存在 T，则返回，否则抛出错误，错误可自定义，通过 supplier 提供
 
-```java
-  public T orElseThrow() {
-        if (value == null) {
-            throw new NoSuchElementException("No value present");
-        }
-        return value;
-    }
-```
+  ```java
+    public T orElseThrow() {
+          if (value == null) {
+              throw new NoSuchElementException("No value present");
+          }
+          return value;
+      }
+  ```
+
+## 其他
 
 - equals: 比较的双方必须都是 Optional 对象。比较其内部的值
 
