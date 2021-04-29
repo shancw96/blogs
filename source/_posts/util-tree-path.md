@@ -181,7 +181,7 @@ const mockTree = [
  * @param {*} compareFn 比较函数
  * @return {Array<tree>} 路径树节点列表
  */
-function findPath(
+export function findPath(
   treeList,
   target,
   compareFn,
@@ -191,7 +191,6 @@ function findPath(
     throw new TypeError("比较函数不能为空");
   }
   if (!Array.isArray(treeList) || !treeList.length) {
-    // insertDebug();
     throw new TypeError("请输入正确的树结构[ [], [], ..., []]", treeList);
   }
 
@@ -217,13 +216,13 @@ function findPath(
   function joinFn(acc, cur) {
     return [...acc, cur];
   }
-  // util：只对array, undefined null,做了判断，偷懒，为了可迁移写作这种格式
+  // util：只对array做了判断，偷懒，为了可迁移写作这种格式
   function isEmpty(payload) {
     const type = Object.prototype.toString
       .call(payload)
       .replace(/(\[\w*)(\s)(\w*)\]/, "$3");
-    return ["Undefined", "Null"].includes(type)
-      ? false
+    return /undefined|null/i.test(type)
+      ? true
       : type === "Array"
       ? !payload.length
       : true;
