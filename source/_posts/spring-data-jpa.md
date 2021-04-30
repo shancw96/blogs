@@ -4,7 +4,7 @@ categories: [后端]
 tags: [database, ORM]
 toc: true
 date: 2021/3/8
-top: 100
+top: 1
 ---
 
 JPA 允许开发者直接和 java 对象交互，而不是通过 SQL 语句。
@@ -172,6 +172,19 @@ public class Laptop {
     private Student student;
 }
 ```
+
+@JoinColumn 用于定义外键
+
+| type             | description                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| java.lang.String | _referencedColumnName_ 引用表对应的字段 [详细解释](https://blog.csdn.net/Xu_JL1997/article/details/103018249) |
+| java.lang.String | _name_ (Optional) 外键名称.                                                                                   |
+| java.lang.String | _columnDefinition_ (Optional) SQL 语句，用于定义某一个 Column 的属性                                          |
+| boolean          | _insertable_ (Optional) 是否可插入.                                                                           |
+| boolean          | _nullable_ (Optional) 外键是否可以为空.                                                                       |
+| java.lang.String | _table_ (Optional) 外键所属的表名                                                                             |
+| boolean          | _unique_ (Optional) 是否是唯一值                                                                              |
+| boolean          | _updatable_ (Optional) JPA 更新操作是否包含当前行.                                                            |
 
 ### ManyToMany
 
