@@ -32,16 +32,6 @@ queryFactory.selectFrom(customer)
     }
   ```
 
-# 介绍
-
-queryDsl：类型安全的动态查询。
-
-为什么会出现 queryDsl？
-
-JPA 提供的基础 CRUD 功能，不能够满足复杂的查询，不灵活。于是出现了@Query 注解，让开发能够写原生的 sql 查询命令。@Query 注解内部的 sql 命令只是 String 字符串，因此 sql 即使错误也能够将项目跑起来。如果在某一天，实体发生了改变，此时的 sql 如果被执行会直接抛出错误。错误非常不好找。
-
-queryDsl 就是为了解决这个问题，如果实体发生了改变，IDEA 会实时提示错误，并且项目无法启动。
-
 # 使用
 
 ## 基础使用例子
@@ -159,3 +149,52 @@ queryDsl 就是为了解决这个问题，如果实体发生了改变，IDEA 会
       return query.fetch();
     }
   ```
+
+## queryDsl 实现分页
+
+### 为 repository 增加 QuerydslPredicateExecutor 实现
+
+```java
+public interface ArticleRepository extends
+  CrudRepository<Comment, Long>,
+  QuerydslPredicateExecutor<Article>,
+  {}
+```
+
+### controller
+
+```java
+ @GetMapping("/query")
+  public Page<Article> queryAllArtilce(Pageable page, @RequestParam(required = false) String query) {
+    return articleService.findAll(page, query);
+  }
+```
+
+### service
+
+```java
+// 文章列表模糊查询 + 分页
+public Page<Article> findAll(Pageable pageable, String query) {
+    QArticle articleModel = QArticle.article;
+    BooleanBuilder booleanBuilder = new BooleanBuilder();
+    if (StringUtils.isNotEmpty(query)) {
+        booleanBuilder.and(articleModel.content.likeIgnoreCase("%" + query + "%"));
+    };
+    // Page<T> findAll(Predicate predicate, Pageable pageable);
+    return articleRepository.findAll(booleanBuilder, pageable);
+}
+```
+
+## BooleanBuilder 是什么？
+
+BooleanBuilder 用于构建 Predicate 表达式。和 StringBuilder 类似，StringBuilder 生成 String 类型，BooleanBuilder 生成 Predicate 类型数据
+
+```java
+public final class BooleanBuilder extends Object implements Predicate, Cloneable {}
+```
+
+常用的方法:
+and，or，not
+
+剩余可选方法:
+orNot, orAllOf,andNot, andAnyOf

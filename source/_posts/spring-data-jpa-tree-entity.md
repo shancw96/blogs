@@ -87,7 +87,7 @@ public class Comment extends Serializable{
     @JsonIgnoreProperties({"childComment", "parent"})
     private Comment parent;
 
-    // 子节点 This is the other side of the relationship defined by the parent field
+    // 子节点
     @OneToMany(mappedBy = "parent",  orphanRemoval = true)
     private List<Comment> childComment;
 }
