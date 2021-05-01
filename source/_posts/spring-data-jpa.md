@@ -290,3 +290,5 @@ private static final long serialVersionUID = 1L;
 ```
 
 在反序列化的过程中，如果接收方为对象加载了一个类，如果该对象的 serialVersionUID 与对应持久化时的类不同，那么反序列化的过程中将会导致 InvalidClassException 异常。
+
+## [传送门:「spring data jpa」实现 tree 结构](https://blog.shancw.net/2021/05/01/spring-data-jpa-tree-entity/)
