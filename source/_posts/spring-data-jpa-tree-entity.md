@@ -16,12 +16,6 @@ date: 2021/05/01
     -- commentC: replay to commentB
 ```
 
-实现步骤：1.设计扁平表结构 -> 2.查询后手动组装数据为 tree 结构 -> 3.返回树结构给前端
-
-2, 3 步骤为可选步骤，如果教给前端手动组装也不是不可以。算法参考这篇文章[数组转树](https://blog.shancw.net/2021/01/11/util-%E6%95%B0%E7%BB%84%E8%BD%AC%E6%A0%91/)
-
-这篇文章主要介绍 entity 的设计
-
 <!-- more -->
 
 # entity 设计
@@ -169,3 +163,7 @@ public List<Comment> findByArticleId(Long articleId) {
     return (List<Comment>)commentRepository.findAll(query);
 }
 ```
+
+# 更多阅读
+
+手动组装扁平树结构：[数组转树](https://blog.shancw.net/2021/01/11/util-%E6%95%B0%E7%BB%84%E8%BD%AC%E6%A0%91/)
