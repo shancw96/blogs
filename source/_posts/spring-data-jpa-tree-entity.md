@@ -65,6 +65,10 @@ public class Comment extends Serializable{
 
 **@JsonIgnore 的作用**: 在序列化和反序列化的时候，忽略掉当前被标注的属性或者方法。
 
+## 删除父节点，自动删除关联节点
+
+orphanRemoval: 删除 parent 实体，导致 child 实体成了孤儿，将会被一起删除。
+
 ## 最终 entity
 
 ```java
@@ -84,7 +88,7 @@ public class Comment extends Serializable{
     private Comment parent;
 
     // 子节点 This is the other side of the relationship defined by the parent field
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent",  orphanRemoval = true)
     private List<Comment> childComment;
 }
 
@@ -166,4 +170,8 @@ public List<Comment> findByArticleId(Long articleId) {
 
 # 更多阅读
 
-手动组装扁平树结构：[数组转树](https://blog.shancw.net/2021/01/11/util-%E6%95%B0%E7%BB%84%E8%BD%AC%E6%A0%91/)
+- 手动组装扁平树结构：[数组转树](https://blog.shancw.net/2021/01/11/util-%E6%95%B0%E7%BB%84%E8%BD%AC%E6%A0%91/)
+
+- [stackOverflow: How does JPA orphanRemoval=true differ from the ON DELETE CASCADE DML clause](https://stackoverflow.com/questions/4329577/how-does-jpa-orphanremoval-true-differ-from-the-on-delete-cascade-dml-clause)
+
+- [Oracle: Orphan Removal in Relationships](https://docs.oracle.com/cd/E19798-01/821-1841/giqxy/)
