@@ -69,3 +69,5 @@ public FileInputStream readFile(String name) throws FileNotFoundException， EOF
     throw se;
   }
   ```
+
+## TODO: spring-boot 中自定义封装错误
