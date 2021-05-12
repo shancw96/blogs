@@ -19,8 +19,6 @@ JPA 是一种规范，它有几种实现方式: [Hibernate](https://hibernate.or
 
 ## QUICK GUIDE
 
-> [JavaPersistenceAPI link](https://www.vogella.com/tutorials/JavaPersistenceAPI/article.html#jpaintro)
-
 ### Entity 实体
 
 一个应该被数据库保存的类，它必须通过 `javax.persistence.Entity`进行注解，一张表对应一个实体。
@@ -76,8 +74,17 @@ public interface CrudRepository<T, ID> extends Repository<T, ID> {
 
     void deleteAll();
 }
-
 ```
+
+### JpaRepository Interface
+
+JpaRepository 和 CrudRepository 的关系:
+
+`JpaRepository extends PagingAndSortingRepository, QueryByExampleExecutor`
+
+`PagingAndSortingRepository extends CrudRepository`
+
+JpaRepository 继承了分页接口，而分页接口继承了 Crud 接口。因此 JpaRepository 功能更加强大, 一般项目首选。
 
 ## 关系映射
 
@@ -125,9 +132,11 @@ public class Laptop {
 
 如果不想生成中间表，将 student 的 id 交给 laptop 来维护，则可以使用 mappedBy 或者是 Join Column。
 
+#### mappedBy
+
 使用 mappedBy 将当前的 student 映射到每一台 laptop 上。
 
-mappedBy 用于指定具有双向关系的两个实体中。哪个实体是被关联处理的。在这里，Laptop 被 student 关联处理
+mappedBy 用于指定具有双向关系的两个实体中，哪个负责管理双方管理。如下代码，由 laptop 管理 student<->laptop 之间的关系，laptop 表中将会多处 student_id 这个外键指向 Student 表 id
 
 ```java
 @Entity
@@ -140,6 +149,7 @@ public class Student {
 
     private int marks;
 
+    // laptop 这个实体被它的student属性所管理
     @OneToMany(mappedBy="student")
     private List<Laptop> laptop = new ArrayList<>();
 }
@@ -157,6 +167,27 @@ public class Laptop {
 
 ![](/images/hibernate/oneToMany-mappedBy.png)
 
+#### JoinColumn
+
+[JoinColumn API Doc](https://docs.oracle.com/javaee/6/api/javax/persistence/JoinColumn.html)
+
+@JoinColumn
+
+> Specifies a column for joining an entity association or element collection
+
+用于定义外键，JoinColumn 可选的配置字段如下
+
+| type             | description                                                                                                   |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- |
+| java.lang.String | _referencedColumnName_ 引用表对应的字段 [详细解释](https://blog.csdn.net/Xu_JL1997/article/details/103018249) |
+| java.lang.String | _name_ (Optional) 外键名称.                                                                                   |
+| java.lang.String | _columnDefinition_ (Optional) SQL 语句，用于定义某一个 Column 的属性                                          |
+| boolean          | _insertable_ (Optional) 是否可插入.                                                                           |
+| boolean          | _nullable_ (Optional) 外键是否可以为空.                                                                       |
+| java.lang.String | _table_ (Optional) 外键所属的表名                                                                             |
+| boolean          | _unique_ (Optional) 是否是唯一值                                                                              |
+| boolean          | _updatable_ (Optional) JPA 更新操作是否包含当前行.                                                            |
+
 使用 JoinColumn 将当前 Laptop 关联到 student
 
 ```java
@@ -172,19 +203,6 @@ public class Laptop {
     private Student student;
 }
 ```
-
-@JoinColumn 用于定义外键
-
-| type             | description                                                                                                   |
-| ---------------- | ------------------------------------------------------------------------------------------------------------- |
-| java.lang.String | _referencedColumnName_ 引用表对应的字段 [详细解释](https://blog.csdn.net/Xu_JL1997/article/details/103018249) |
-| java.lang.String | _name_ (Optional) 外键名称.                                                                                   |
-| java.lang.String | _columnDefinition_ (Optional) SQL 语句，用于定义某一个 Column 的属性                                          |
-| boolean          | _insertable_ (Optional) 是否可插入.                                                                           |
-| boolean          | _nullable_ (Optional) 外键是否可以为空.                                                                       |
-| java.lang.String | _table_ (Optional) 外键所属的表名                                                                             |
-| boolean          | _unique_ (Optional) 是否是唯一值                                                                              |
-| boolean          | _updatable_ (Optional) JPA 更新操作是否包含当前行.                                                            |
 
 ### ManyToMany
 

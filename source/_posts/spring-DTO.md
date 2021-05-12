@@ -9,9 +9,9 @@ updated: 2021/4/22
 
 # 什么是 DTO？
 
-`页面展示UI <---> DTO <----> Entity <----> 业务`
+页面展示 UI -> controller -> service -> DTO -> 页面展示
 
-数据传输对象,用于表现层（前端）和应用层（entity）的数据交互。
+数据传输对象,将 entity 实体组装转换成前端需要展示的类型
 
 <!-- more -->
 

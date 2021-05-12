@@ -43,7 +43,6 @@ public class Comment extends Serializable{
     @OneToMany(mappedBy = "parent")
     private List<Comment> childComment;
 }
-
 ```
 
 上述结构，生成的效果如下
@@ -91,7 +90,6 @@ public class Comment extends Serializable{
     @OneToMany(mappedBy = "parent",  orphanRemoval = true)
     private List<Comment> childComment;
 }
-
 ```
 
 实体序列化后返回的 Comment 格式如下
