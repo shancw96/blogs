@@ -11,7 +11,7 @@ date: 2021/6/10
 
 <!-- more -->
 
-## 1. 反转链表
+## 反转链表
 
 [leetcode 206](https://leetcode.com/problems/reverse-linked-list/)
 
@@ -68,7 +68,7 @@ function reverse(head) {
 
 > 增加 !head 是为了处理 head 不存在的极端 case
 
-## 2. 反转前 N 个链表
+## 反转前 N 个链表
 
 ```java
 // 将链表的前 n 个节点反转（n <= 链表长度）
@@ -99,7 +99,7 @@ sucessor 节点作用
 反转前 N 个节点，除了记录 tail，还需要记录切分处的后继节点 sucessor，用于反转后的尾节点连接。
 如图中， 节点 1，想要连接到节点 4，需要知道节点 4 在哪才行。
 
-## 3. 反转指定区间的链表
+## 反转指定区间的链表
 
 [leetcode 92](https://leetcode.com/problems/reverse-linked-list-ii/)
 
@@ -120,3 +120,82 @@ function reverseMN(head, m, n) {
 ```
 
 ![图1](/images/algorithm/reverse-linkedListMN.jpeg)
+
+## 分组反转链表
+
+<span class='text-large'> 反转指定节点间的链表 </span>
+
+**reverse 迭代实现 左闭右开**
+
+```java
+/** 反转区间 [a, b) 的元素，注意是左闭右开 */
+ListNode reverseIterator(ListNode a, ListNode b) {
+    ListNode pre, cur, nxt;
+    pre = null; cur = a; nxt = a;
+    // while 终止的条件改一下就行了
+    while (cur != b) {
+        nxt = cur.next;
+        cur.next = pre;
+        pre = cur;
+        cur = nxt;
+    }
+    // 返回反转后的头结点
+    return pre;
+}
+```
+
+实现
+
+```js
+function reverseKGroup(head, k) {
+  const a = head;
+  const b = head;
+  for (let i = 0; i < k; i++) {
+    // 不足 k 个，不需要反转，base case
+    if (b == null) return head;
+    b = b.next;
+  }
+
+  const newHead = reverseIterator(a, b); // 左闭右开, 破坏性反转
+
+* a.next = reverseKGroup(b, k); //从断开的地方续接
+
+  return newHead;
+}
+```
+
+核心流程：
+
+```js
+const newHead = reverseIterator(a, b); // 左闭右开, 破坏性反转
+
+a.next = reverseKGroup(b, k); //从断开的地方续接
+```
+
+![图3](/images/algorithm/reverse-linkedList-between-node3.png)
+
+**补充：reverse 递归左开右闭, 不破坏原有的链表 实现**
+
+```js
+// 左开右闭
+function reverse(prev, b) {
+  const a = prev.next;
+  const sucessor = b.next;
+  reverseCore(a, b);
+  return prev;
+
+  function reverseCore(a, b) {
+    if (a === b) return b;
+    const newHead = reverseCore(a.next, b);
+    a.next.next = a;
+*   a.next = sucessor;
+    prev.next = b;
+    return newHead;
+  }
+}
+```
+
+图示：
+![图2](/images/algorithm/reverse-linkedList-between-node2.jpeg)
+
+<span class="text-red"> 坑：上面代码中，星号的那行，不能使用 a.next = b.next;因为 a.next.next = a; 更改了 b 的 next 指向 </span>
