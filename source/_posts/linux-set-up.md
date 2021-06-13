@@ -73,4 +73,17 @@ https://einverne.github.io/post/2021/03/linux-use-clash.html
 
 ## 自启动配置
 
-https://piaodazhu.github.io/5-Ubuntu-fast-cross-GFW/
+```bash
+#!/bin/bash
+gsettings set org.gnome.system.proxy mode 'manual' #ubuntu网络模式配置为手动
+cd /home/shancw/project  #切换到Clash的目录
+./clash . &  #在后台执行clash客户端
+echo "start vpn successfully!"  #启动成功的提示
+exit 0
+```
+
+# 配置自启动脚本
+
+1. `gnome-session-properties` 打开 startup Application Preference 界面
+2. 点击右侧的 add
+3. 在 command 输入框 输入想要执行的 shell 脚本如 sh clash-start.sh
