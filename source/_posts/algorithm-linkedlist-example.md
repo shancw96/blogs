@@ -1,7 +1,7 @@
 ---
 title: 算法-5 个链表常见操作
 categories: [算法]
-tags: [algorithm, linkedList]
+tags: [linkedList]
 toc: true
 date: 2020/6/22
 ---
