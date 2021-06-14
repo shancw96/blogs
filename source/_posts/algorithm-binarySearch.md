@@ -128,3 +128,42 @@ function right_bound(nums, target) {
 
 想象极限情况 [2,2] -> [2] left，right 如何变化，比如左边界判断如下图：
 ![图1](/images/algorithm/binarySearch-left-bound.jpeg)
+
+# leetcode
+
+## 35: Search Insert Position
+
+[题目描述: Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.](https://leetcode.com/problems/search-insert-position/)
+
+和 <span class="text-red"> 寻找一个数 </span>类似，多了如果没有找到，则返回应该插入的位置。
+
+首先，分析<span class="text-red"> 寻找一个数 </span>没有匹配到的极限情况：
+
+对于[8, 10] 我们寻找 9，走完核心逻辑，left = 1; right = 0。这正好符合插入位置的要求。
+
+接着，考虑极限情况，如果 target，比列表所有数都小，那么应该插入在列表头部，如果 target 比列表最大值都大，那么应该插入在列表的末尾。
+
+综上，完整代码为
+
+```js
+function right_bound(nums, target) {
++  if (target < nums[0]) return 0;
++  if (target > nums[nums.length - 1]) return nums.length;
+
+   let left = 0;
+   let right = nums.length - 1;
+
+   while (left <= right) {
+     const mid = parseInt(left + (right - left) / 2);
+
+     if (nums[mid] === target) {
+       return mid;
+     } else if (target < nums[mid]) {
+       right = mid - 1;
+     } else if (target > nums[mid]) {
+       left = mid + 1;
+     }
+   }
++  return left;
+}
+```
