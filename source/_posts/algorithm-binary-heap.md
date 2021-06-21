@@ -140,3 +140,119 @@ delete(index) {
   this.sink(index);
 }
 ```
+
+# 应用
+
+## 实现合并 K 个有序链表的算法
+
+实现合并 k 个有序链表的算法需要用到优先级队列（Priority Queue），这种数据结构是「二叉堆」最重要的应用。
+
+[原文](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484499&idx=1&sn=64f75d4bdbb4c5777ba199aae804d138&chksm=9bd7fa5baca0734dc51f588af913140560b994e3811dac6a7fa8ccfc2a31aca327f1faf964c2&scene=21#wechat_redirect)
+
+### 代码实现
+
+```js
+function mergeKLists(lists) {
+  const linkedListHeap = new BinaryHeap(
+    (node1, node2) => node1 && node2 && node1.val < node2.val
+  );
+  let movePointer = new ListNode();
+  const head = movePointer;
+  for (let head of lists) {
+    if (head) {
+      linkedListHeap.insert(head);
+    }
+  }
+
+  while (linkedListHeap.size > 0) {
+    let tempNode = linkedListHeap.pop();
+    movePointer.next = tempNode;
+    movePointer = movePointer.next;
+    if (tempNode.next) {
+      linkedListHeap.insert(tempNode.next);
+    }
+  }
+  return head.next;
+}
+```
+
+### 实现二叉堆
+
+```js
+class BinaryHeap {
+  constructor(compareFn) {
+    this.pq = ["_"];
+    this.size = 0;
+    this.leftSmallerRight = compareFn;
+  }
+
+  insert(node) {
+    this.size += 1;
+    this.pq[this.size] = node;
+    this.swim(this.size);
+  }
+
+  swim(index) {
+    let swappingIndex = index;
+    while (
+      swappingIndex > 1 &&
+      this.leftSmallerRight(
+        this.pq[this.parentIndex(swappingIndex)],
+        this.pq[swappingIndex]
+      )
+    ) {
+      this.swap(this.parentIndex(swappingIndex), swappingIndex);
+      swappingIndex = this.parentIndex;
+    }
+  }
+
+  sink(index) {
+    let swappingIndex = index;
+    while (
+      this.leftSmallerRight(
+        this.pq[swappingIndex],
+        this.pq[this.childLeftIndex(swappingIndex)]
+      ) ||
+      this.leftSmallerRight(
+        this.pq[swappingIndex],
+        this.pq[this.childRightIndex(swappingIndex)]
+      )
+    ) {
+      const childIndex = this.leftSmallerRight(
+        this.pq[swappingIndex],
+        this.pq[this.childLeftIndex(swappingIndex)]
+      )
+        ? this.childLeftIndex(swappingIndex)
+        : this.childRightIndex(swappingIndex);
+      this.swap(swappingIndex, childIndex);
+      swappingIndex = childIndex;
+    }
+  }
+
+  pop() {
+    if (this.size >= 1) {
+      this.swap(1, this.size);
+      const popped = this.pq.pop();
+      this.sink(1);
+      this.size -= 1;
+      return popped;
+    }
+  }
+
+  parentIndex(index) {
+    return parseInt(index / 2);
+  }
+
+  childLeftIndex(index) {
+    return index * 2;
+  }
+
+  childRightIndex(index) {
+    return index * 2 + 1;
+  }
+
+  swap(index1, index2) {
+    [this.pq[index1], this.pq[index2]] = [this.pq[index2], this.pq[index1]];
+  }
+}
+```
