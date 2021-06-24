@@ -153,6 +153,8 @@ function reverse(head, k) {
 
 ## 分组反转链表 = 多区间反转
 
+[leetcode 25. Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/)
+
 对于链表：1->2->3->4->5，分组大小为 2
 反转操作为： reverseBetween(1->2) -> reverseBetween(3->4) -> 5
 
