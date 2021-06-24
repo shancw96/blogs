@@ -6,7 +6,7 @@ toc: true
 date: 2021/6/13
 ---
 
-> 参考**[labuladong 如何高效判断回文单链表？](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484822&idx=1&sn=44742c9a3557038c8da7150100d94db9&chksm=9bd7fb9eaca0728876e1146306a09f5453bcd5c35c4a264304ea6189faa83ec12a00322f0246&scene=21#wechat_redirect)**
+> 参考**[labuladong 如何高效判断回文单链表？](https://mp.weixin.qq.com/s?__biz=MzAxODQxMDM0Mw==&mid=2247484822&idx=1&sn=44742c9a3557038c8da7150100d94db9&chksm=9bd7fb9eaca0728876e1146306a09f5453bcd5c35c4a264304ea6189faa83ec12a00322f0246&scene=21#wechat_redirect)** > [leetcode: 234 Palindrome LinkedList](https://leetcode.com/problems/palindrome-linked-list/)
 
 1. 借助递归的性质，巧妙解决回文链表问题
 
@@ -46,7 +46,7 @@ void traverse(ListNode head) {
 }
 ```
 
-此时如果我们保留了原始的 head，就能够实现首尾节点的比较
+<span class="text-red">借助链表的后序遍历，我们可以倒着获取链表节点，此时如果我们保留了原始的 head，就能够实现首尾节点的比较。</span>
 
 ```js
 function isPalindrome(head) {
@@ -61,8 +61,6 @@ function isPalindrome(head) {
 ```
 
 ![图1](/images/algorithm/linkedList-isPalindrome.jpeg)
-
-上面解法利用了递归栈存有所有节点信息，来实现首尾比较
 
 # 迭代
 

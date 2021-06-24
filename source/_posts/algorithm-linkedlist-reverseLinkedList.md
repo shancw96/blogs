@@ -110,92 +110,67 @@ ListNode reverseBetween(ListNode head, int m, int n)
 如果 m == 1，就相当于反转前 N 个链表
 
 ```js
-function reverseMN(head, m, n) {
-  if (m === 1) {
-    return reverseN(head, n);
+var reverseBetween = function (head, left, right) {
+  if (left === 1) {
+    return reverse(head, right);
   }
-  head.next = reverse(head.next, m - 1, n - 1);
+  // 以example1 为例，当left - 1为1 的时候，此时反转情况如下 1 -> 2 -> reverse(3->4)->5
+  const newHead = reverseBetween(head.next, left - 1, right - 1);
+  head.next = newHead;
   return head;
-}
+};
 ```
 
 ![图1](/images/algorithm/reverse-linkedListMN.jpeg)
-
-## 分组反转链表
-
-<span class='text-large'> 反转指定节点间的链表 </span>
-
-**reverse 迭代实现 左闭右开**
-
-```java
-/** 反转区间 [a, b) 的元素，注意是左闭右开 */
-ListNode reverseIterator(ListNode a, ListNode b) {
-    ListNode pre, cur, nxt;
-    pre = null; cur = a; nxt = a;
-    // while 终止的条件改一下就行了
-    while (cur != b) {
-        nxt = cur.next;
-        cur.next = pre;
-        pre = cur;
-        cur = nxt;
-    }
-    // 返回反转后的头结点
-    return pre;
-}
-```
-
-实现
+完整代码
 
 ```js
-function reverseKGroup(head, k) {
-  const a = head;
-  const b = head;
-  for (let i = 0; i < k; i++) {
-    // 不足 k 个，不需要反转，base case
-    if (b == null) return head;
-    b = b.next;
-  }
+function reverse(head, k) {
+  let count = 0;
+  let sucessor = null;
 
-  const newHead = reverseIterator(a, b); // 左闭右开, 破坏性反转
+  let originHead = head;
 
-* a.next = reverseKGroup(b, k); //从断开的地方续接
+  let newHead = reverseCore(head);
+
+  originHead.next = sucessor;
 
   return newHead;
-}
-```
 
-核心流程：
-
-```js
-const newHead = reverseIterator(a, b); // 左闭右开, 破坏性反转
-
-a.next = reverseKGroup(b, k); //从断开的地方续接
-```
-
-![图3](/images/algorithm/reverse-linkedList-between-node3.png)
-
-**补充：reverse 递归左开右闭, 不破坏原有的链表 实现**
-
-```js
-// 左开右闭
-function reverse(prev, b) {
-  const a = prev.next;
-  const sucessor = b.next;
-  reverseCore(a, b);
-  return prev;
-
-  function reverseCore(a, b) {
-    if (a === b) return b;
-    const newHead = reverseCore(a.next, b);
-    a.next.next = a;
-*   a.next = sucessor;
-    prev.next = b;
+  function reverseCore(head) {
+    count += 1;
+    if (count === k || !head || !head.next) {
+      sucessor = head.next;
+      return head;
+    }
+    const newHead = reverseCore(head.next);
+    head.next.next = head;
+    head.next = null;
     return newHead;
   }
 }
 ```
 
-图示：
-![图2](/images/algorithm/reverse-linkedList-between-node2.jpeg)
+## 分组反转链表 = 多区间反转
 
-<span class="text-red"> 坑：上面代码中，星号的那行，不能使用 a.next = b.next;因为 a.next.next = a; 更改了 b 的 next 指向 </span>
+对于链表：1->2->3->4->5，分组大小为 2
+反转操作为： reverseBetween(1->2) -> reverseBetween(3->4) -> 5
+
+代码：
+
+```js
+var reverseKGroup = function (head, k) {
+  let startIndex = 1;
+  let size = 0;
+  let countHead = head;
+  while (countHead) {
+    size += 1;
+    countHead = countHead.next;
+  }
+  while (startIndex + k - 1 <= size) {
+    head = reverseBetween(head, startIndex, startIndex + k - 1);
+    startIndex = startIndex + k;
+  }
+  return head;
+};
+```

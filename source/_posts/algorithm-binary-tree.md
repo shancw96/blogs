@@ -25,6 +25,27 @@ function Node(val) {
 
 ![](https://leetcode.com/problems/populating-next-right-pointers-in-each-node/)
 
+```js
+var connect = function (root) {
+  if (!root) return null;
+
+  // 函数定义：传入两个相邻节点，将其关联起来
+  connectCore(root.left, root.right);
+
+  return root;
+
+  function connectCore(left, right) {
+    if (!left || !right) return;
+
+    left.next = right;
+
+    connectCore(left.left, left.right);
+    connectCore(right.left, right.right);
+    connectCore(left.right, right.left);
+  }
+};
+```
+
 # 114
 
 这道题目需要深刻意识到后续遍历压栈的重要性
