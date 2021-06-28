@@ -22,6 +22,8 @@ Exception 分为 RuntimeException（运行时异常） 和 CheckedException（�
 - RuntimeException：一般为代码的逻辑错误。如数组下标越界，类型转换错误，空指针异常
 - CheckedException: 编译时可以检查到的异常，必须<span style="color: red">**显式的进行处理**</span>,例如：IOException，FileNotFoundException
 
++ EOFException： 你从文件中读取对象的时候，如何判断是否读取完毕。jvm会给抛出EOFException，表示的是，文件中对象读取完毕，捕获掉这个异常就可以，是捕获不是抛出。
+
 ## 异常处理
 
 ### try catch finally （略）
