@@ -5,7 +5,7 @@ echo ">> image build success"
 docker image prune
 echo "---------------------------"
 echo ">> start pushing image to 192.168.193.72:5000"
-docker push 192.168.193.72:5000/blog:test
+docker push 192.168.193.72:5000/blog:latest
 echo ">> image push success"
 echo ">> sync code to github and trigger git hook!"
 echo "auto deploy" >> deploy.tag
