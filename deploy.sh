@@ -1,6 +1,7 @@
 echo ">> start building image..."
 docker build -t blogs:latest .
 echo ">> image build success"
+docker image prune
 echo "---------------------------"
 echo ">> start pushing image to 192.168.193.72:5000"
 docker push 192.168.193.72:5000/blog:test
