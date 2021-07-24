@@ -1,5 +1,6 @@
 echo ">> start building image..."
-docker build -t blogs:latest .
+docker rmi --force blogs:latest
+docker build -t blogs:latest . --no-cache
 echo ">> image build success"
 docker image prune
 echo "---------------------------"
