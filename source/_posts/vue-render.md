@@ -3,8 +3,12 @@ title: vue 渲染器
 categories: []
 tags: []
 toc: true
-date:
+date: 2021/7/24
 ---
+
+这篇文章介绍了 vue VNode 相关的事项方式。
+
+<!--  more -->
 
 # 概览
 
