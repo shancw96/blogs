@@ -12,6 +12,8 @@ date: 2021/7/25
 
 除了使用公开服务外，用户还可以在本地搭建私有 Docker Registry。Docker 官方提供了 [Docker Registry](https://hub.docker.com/_/registry/) 镜像，可以直接使用做为私有 Registry 服务
 
+<!-- more -->
+
 # Docker 安装
 
 ## ubuntu

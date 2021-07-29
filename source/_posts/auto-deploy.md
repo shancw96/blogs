@@ -3,7 +3,7 @@ title: 使用github webhook自动部署hexo & docker 部署
 categories: [杂项]
 tags: []
 toc: true
-date:
+date: 2021/4/25
 ---
 
 需要使用到的工具：nginx, nodejs, pm2(npm package), koa(npm package), github webhook.
@@ -13,6 +13,7 @@ date:
 1. pm2 维护一个 nodejs web 服务
 2. 用户提交 commit 后触发 webhook，向 nodejs web 服务发送请求。
 3. web 服务接收到请求，执行自动执行脚本
+<!-- more -->
 
 ## 1. 写自动部署脚本 + web 服务
 

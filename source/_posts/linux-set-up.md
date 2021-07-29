@@ -3,7 +3,7 @@ title: ubuntu-setup
 categories: []
 tags: []
 toc: true
-date:
+date: 2021/6/13
 ---
 
 ubuntu 新系统个性化配置
