@@ -69,7 +69,7 @@ b = (byte) (b*b) // b * b 执行规则A，自动转换成int,将int赋值给byte
 对于普通逻辑运算符 `condition1 & condition2` ，即使 condition1 为 false，也会运行 condition2。
 对于短路逻辑运算符 `condition1 && condition2` ，如果 condition1 为 false，那么剩余的 condition2 就不会继续执行。
 
-# 包，类，接口
+# 接口
 
 **protect,public,private 有什么区别？**
 
@@ -95,5 +95,145 @@ access interface name {
 }
 ```
 
-access 字段：
-access 字段要么是 public，要么不实用。
+- access 字段：
+  access 字段要么是 public，要么不使用。当不包含访问修饰符时，执行默认的访问方法，接口只对它所在包的其他成员可用。
+- 接口方法：
+  默认为 public，实现接口的类必须实现接口的全部方法
+
+**什么是接口引用？**
+假如 A 被声明为接口 I 的引用。这意味着它可以用于存储任何实现 I 的对象。
+
+```java
+ByTwo twoOb = new ByTwo();
+ByThree threeOb = new ByThrees();
+Series ob;
+```
+
+如上，ob 可以存储 twoOb，或者 threeOb
+
+**接口的默认方法是什么？应用场景？**
+
+```java
+public interface MyIF {
+  int getUserId();
+
+  default int getAdminID() {
+    return 1;
+  }
+}
+```
+
+接口中定义的默认方法，是有逻辑的真实方法，可以在实现它的类中直接调用。默认方法的主要作用是，在不破坏现有代码的情况下，提供一种扩展接口的方式。
+
+如果实体实现了多个接口，并存在同名默认方法，那么准确调用方式如下
+
+InterfaceName.super.methodName();
+
+**接口静态方法和默认方法有什么区别**
+
+```java
+public interface MyIF {
+  int getUserId();
+
+  default int getAdminID() {
+    return 1;
+  }
+
+  static int getUniversalID() {
+    return 0;
+  }
+}
+```
+
+# 范型
+
+```java
+class-name<type-arg-list> var-name = new class-name<type-arg-list>(cons-arg-list);
+```
+
+```java
+public class ArrayList<T> {
+    private T[] array;
+    private int size;
+    public void add(T e) {...}
+    public void remove(int index) {...}
+    public T get(int index) {...}
+}
+
+// 创建可以存储String的ArrayList:
+ArrayList<String> strList = new ArrayList<String>();
+// 创建可以存储Float的ArrayList:
+ArrayList<Float> floatList = new ArrayList<Float>();
+// 创建可以存储Person的ArrayList:
+ArrayList<Person> personList = new ArrayList<Person>();
+```
+
+> 题外话，对于上述`ArrayList<String> strList = new ArrayList<String>()`，可以简化如下：`List<String> strList = new ArrayList<>();`，原理：
+
+**什么是范型？**
+范型就是定义一种模板。实现编写一次模版，可以创建任意类型的 ArrayList
+
+## 使用 extends 来约束范型参数的范围
+
+```java
+// <T extends superClass>
+
+public class ArrayList<T extends Number> {
+    private T[] array;
+    private int size;
+    public void add(T e) {...}
+    public void remove(int index) {...}
+    public T get(int index) {...}
+}
+
+// 如此以来，构建实例的时候，实参只能是Number或者Number的子类
+// 创建可以存储Float的ArrayList:
+ArrayList<Float> floatList = new ArrayList<Float>();
+```
+
+## 范型中的通配符"？"有什么用
+
+假如存在如下场景，一个对象包含 Double 值 1.25，另外一个对象包含 Float 值-1.25，希望能够实现比较这两个对象的绝对值是否相等。
+
+在使用了范型的情况下，如下方式只能实现同类参数的比较，比如 Double 与 Double，Float 与 Float。
+
+```java
+boolean absEqual(NumericFns<T> ob) {
+  return Math.abs(num.doubleValue) == Math.abs(num.doubleValue())
+}
+```
+
+想要实现不同的类型比较，就需要使用 ？ 通配符,表示匹配任何类型
+
+```java
+boolean absEqual(NumericFns<?> ob) {
+  return Math.abs(num.doubleValue) == Math.abs(num.doubleValue())
+}
+```
+
+**当然，通配符的匹配区间也是可以限制的**
+
+- 上层约束：`<? extends superclass>`
+- 下层约束：`<? super subclass>`
+
+## 范型方法
+
+```java
+// <type-param-list> ret-type meth-name(param-list)
+
+T demoMethod(T param)
+```
+
+## 菱形运算符 实现类型推断
+
+jdk1.7 以前
+
+```java
+TwoGen<Integer, String> tgOb = new TwoGen<Integer, String>(42, "testString");
+```
+
+jdk1.7 及以后
+
+```java
+TwoGen<Integer, String> tgOb = new TwoGen<>(42, "testString");
+```
