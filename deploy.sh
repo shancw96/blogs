@@ -9,3 +9,4 @@ echo ">> sync code to github and trigger git hook!"
 echo "auto deploy" >> deploy.tag
 git add . && git commit -m "docker deploy"
 git push origin master
+exit 0;
