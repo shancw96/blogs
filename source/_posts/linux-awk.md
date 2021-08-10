@@ -7,6 +7,8 @@ date: 2021/8/5
 ---
 
 翻译自 [how to use the awk Command on Linux](https://www.howtogeek.com/562941/how-to-use-the-awk-command-on-linux/)
+查找指定端口 8080，并 kill：
+kill -9 $(netstat -nlp | grep 8080 | awk '{print $7}' | awk -F"/" '{ print $1 }');
 
 <!-- more -->
 
