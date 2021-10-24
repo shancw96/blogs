@@ -3,7 +3,7 @@ title: 【前端】Redux Slice 开发模式快速入门
 categories: [前端]
 tags: [redux]
 toc: true
-date: 2021/10/19
+date: 2021/10/24
 ---
 
 文章目的在于让读者快速了解基于 Redux ToolKit 的 主流 workflow 的基本使用，看完后能够知道如何在 React 中正确使用 Slice 模式进行开发。
