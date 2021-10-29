@@ -1,3 +1,12 @@
+---
+title: 【前端】使用useCallback 和 React.memo 优化性能
+categories: [前端]
+tags: [react]
+toc: true
+date: 2021/10/29
+---
+
+[blog ref](<https://blog.shancw.net/2021/10/29/react-UseCallback%20%E5%92%8C%20React.memo()%20%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/>)
 useCallback 和 React.memo 都是用空间换时间的缓存优化方式。这篇文章介绍了 useCallback 和 React.memo 的使用场景和简单入门介绍
 
 <!-- more -->
