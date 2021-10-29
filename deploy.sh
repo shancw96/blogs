@@ -1,6 +1,9 @@
 highlight='\033[0;31m'
 NC='\033[0m'
+echo "${highlight}---------------------------------------------${NC}"
+echo setting http proxy to http://127.0.0.1:7890
 export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+echo "${highlight}---------------------------------------------${NC}"
 echo "${highlight}---------------------------------------------${NC}"
 date
 echo building local static file...
