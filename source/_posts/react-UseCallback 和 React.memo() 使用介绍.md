@@ -1,5 +1,7 @@
 useCallback 和 React.memo 都是用空间换时间的缓存优化方式。这篇文章介绍了 useCallback 和 React.memo 的使用场景和简单入门介绍
 
+<!-- more -->
+
 ## useCallback
 
 ### 理解函数相等检查
