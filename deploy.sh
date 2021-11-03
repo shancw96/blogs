@@ -27,7 +27,7 @@ date
 echo sync to github
 echo "${highlight}---------------------------------------------${NC}"
 time=$(date "+%Y-%m-%d %H:%M:%S")
-echo "please input commit message"
+echo ">>> please input your commit message !"
 read message
 git add .
 git commit -m "${message}"

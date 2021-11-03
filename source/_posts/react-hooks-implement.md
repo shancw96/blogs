@@ -6,11 +6,11 @@ toc: true
 date: 2021/11/1
 ---
 
-这篇文章深入介绍了 useReducer, useState, useMemo, useCallback, useRef 的实现
+这篇文章介绍了 useReducer, useState, useMemo, useCallback, useRef 的实现
 
 <!-- more -->
 
-## 数据更新 - useReducer & useState
+## 数据操作 - useReducer & useState & useRef
 
 useState 和 useReducer 都用于组件内的状态管理，useState 由 useReducer 实现
 
