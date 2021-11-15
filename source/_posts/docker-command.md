@@ -42,6 +42,18 @@ docker exec -it mongo mongo admin
 db.createUser({user:"root",pwd:"root",roles:[{role:'root',db:'admin'}]}) #  //创建用户,此用户创建成功,则后续操作都需要用户认证
 ```
 
+> spring boot 配置
+
+```yml
+data:
+  mongodb:
+    host: 192.168.193.124
+    port: 27017
+    username: root
+    password: root
+    database: your-database-name
+```
+
 ## 查看运行的 container
 
 - docker ps 查看正在运行的 container
