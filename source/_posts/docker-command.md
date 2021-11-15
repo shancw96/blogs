@@ -1,5 +1,5 @@
 ---
-title: docker 学习 - 命令01 运行一个container
+title: docker - 运行一个container
 categories: [运维]
 tags: [Docker]
 toc: true
@@ -15,7 +15,7 @@ updated: 2021/4/5
 2. docker pull [imageName] ： 拉取 image
 3. docker images : 查看 images 列表
 
-## 运行一个 docker
+## 运行 mysql
 
 docker run [image] [command]
 
@@ -30,6 +30,17 @@ docker run -itd --name mysql-test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mys
 –tty -t 分配一个伪 tty(控制台)，一般与 -i 连用。
 -p 3306:3306 映射容器服务的 3306 端口到宿主机的 3306 端口
 -e 执行命令 MYSQL_ROOT_PASSWORD=123456：设置 MySQL 服务 root 用户的密码
+
+### 运行 mongoDB
+
+```bash
+docker pull mongo
+docker run -itd --name mongo -p 27017:27017 mongo --auth
+# 建立认证权限
+docker exec -it mongo mongo admin
+# > mongo tty
+db.createUser({user:"root",pwd:"root",roles:[{role:'root',db:'admin'}]}) #  //创建用户,此用户创建成功,则后续操作都需要用户认证
+```
 
 ## 查看运行的 container
 
