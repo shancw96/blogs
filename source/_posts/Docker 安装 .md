@@ -195,7 +195,7 @@ docker.io/library/ubuntu:18.04
     <none>              <none>              00285df0df87        5 days ago          342 MB
     ```
 
-  - 删除无效镜像：`docker image prune`
+  - 删除无效镜像：`sudo docker rmi $(docker images -f "dangling=true" -q)`
 
 ## 使用 Dockerfile 定制镜像
 
@@ -226,7 +226,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
   ```bash
   FROM debian:stretch
-
+  
   RUN apt-get update
   RUN apt-get install -y gcc libc6-dev make wget
   RUN wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz"
@@ -347,6 +347,21 @@ hello world
 - docker container start [contaienr ID] 恢复
 - docker container restart [container ID] 重启
 
+### 机器重启，docker容器恢复策略
+
+`--restart`
+
+| flag           | 描述                                                         |
+| -------------- | ------------------------------------------------------------ |
+| no             | 不重启容器 （默认值）                                        |
+| on-failure     | 如果容器因为错误崩溃退出，那么重启                           |
+| always         | 当容器停止时候，总是重启。如果是被手动停止，那么只有在Docker 守护进程重启的时候才会自动重启。 |
+| unless-stopped | 和always类似，如果被手动停止，即使是Docker 守护进程重启，也不会被重启 |
+
+```bash
+docker run -d --restart unless-stopped redis
+```
+
 ## 指定外部访问端口
 
 容器中可以运行一些网络应用，要让外部也可以访问这些应用，可以通过 -P 或 -p 参数来指定端口映射。
@@ -452,7 +467,7 @@ REPOSITORY                        TAG                 IMAGE ID            CREATE
 ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
 ```
 
-2. docker tag 进行标记
+2.   docker tag 进行标记
 
    格式:`docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]`
 
@@ -489,8 +504,10 @@ ubuntu                            latest              ba5877dc9bec        6 week
     "https://hub-mirror.c.163.com",
     "https://mirror.baidubce.com"
   ],
-  "insecure-registries": [
-    "192.168.199.100:5000"
+   "insecure-registries": [
+    "192.168.193.72:5000",
+    "192.168.1.193:5000",
+    "192.168.193.124:5000"
   ]
 }
 ```
