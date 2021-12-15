@@ -14,14 +14,14 @@ echo "${highlight}---------------------------------------------${NC}"
 date
 echo building docker image...
 echo "${highlight}---------------------------------------------${NC}"
-docker rmi --force 192.168.193.72:5000/blog:latest
-docker build . -t 192.168.193.72:5000/blog:latest --no-cache
+docker rmi --force 10.14.145.72:5000/blog:latest
+docker build . -t 10.14.145.72:5000/blog:latest --no-cache
 echo "${highlight}---------------------------------------------${NC}"
 date
 echo pushing docker image...
 echo "${highlight}---------------------------------------------${NC}"
 
-docker push 192.168.193.72:5000/blog:latest
+docker push 10.14.145.72:5000/blog:latest
 echo "${highlight}---------------------------------------------${NC}"
 date
 echo sync to github
