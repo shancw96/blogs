@@ -18,7 +18,7 @@ type TreeNode = {
 type TreeList = TreeNode<unknown>[];
 ```
 
-这篇文章提供了两个 util 处理 TreeNode 特定 key 的映射与额外 key 丰富，从而实现前端树展示与后端树结构的桥接。
+这篇文章提供了两个 util 处理 TreeNode 特定 key 的映射与额外 key 丰富，从而实现前端展现树与后端存储树的桥接。
 
 <!-- more -->
 
