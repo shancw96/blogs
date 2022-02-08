@@ -1,10 +1,9 @@
 ---
-title: 【长期更新】JPA with QueryDsl
+title: JPA with QueryDsl
 categories: [后端]
 tags: [database, ORM, JPA]
 toc: true
 date: 2021/4/25
-top: 2
 ---
 
 这篇文章包括了 queryDsl - JPA 的常用功能。
