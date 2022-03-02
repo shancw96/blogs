@@ -14,14 +14,14 @@ echo "${highlight}---------------------------------------------${NC}"
 date
 echo building docker image...
 echo "${highlight}---------------------------------------------${NC}"
-docker rmi --force serial.limiaomiao.site:5000/blog:v1
-docker build . -t serial.limiaomiao.site:5000/blog:v1 --no-cache
+docker rmi --force 	10.14.145.2:5000/blog:v1
+docker build . -t 	10.14.145.2:5000/blog:v1 --no-cache
 echo "${highlight}---------------------------------------------${NC}"
 date
 echo pushing docker image...
 echo "${highlight}---------------------------------------------${NC}"
 
-docker push serial.limiaomiao.site:5000/blog:v1
+docker push 	10.14.145.2:5000/blog:v1
 echo "${highlight}---------------------------------------------${NC}"
 date
 echo sync to github
