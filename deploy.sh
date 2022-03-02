@@ -31,12 +31,10 @@ echo ">>> please input your commit message !"
 read message
 git add .
 git commit -m "${message}"
-echo "auto deploy at:${time}" >> deploy.tag
-git add .
-git commit -m "auto deploy at ${time}"
 git push origin master
 echo "${highlight}---------------------------------------------${NC}"
-date
+
+ssh shancw@serial.limiaomiao.site -p 11122 "sh /home/shancw/project/blog.sh"
 echo deploy success!
 echo "${highlight}---------------------------------------------${NC}"
 exit 0
