@@ -1,8 +1,8 @@
 highlight='\033[0;31m'
 NC='\033[0m'
 echo "${highlight}---------------------------------------------${NC}"
-echo setting http proxy to http://127.0.0.1:7890
-export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+# echo setting http proxy to http://127.0.0.1:7890
+# export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
 echo "${highlight}---------------------------------------------${NC}"
 echo "${highlight}---------------------------------------------${NC}"
 date
@@ -14,14 +14,14 @@ echo "${highlight}---------------------------------------------${NC}"
 date
 echo building docker image...
 echo "${highlight}---------------------------------------------${NC}"
-docker rmi --force 10.11.111.4:5000/blog:v1
-docker build . -t 10.11.111.4:5000/blog:v1 --no-cache
+docker rmi --force 11.11.111.1:5000/blog:v1
+docker build . -t 11.11.111.1:5000/blog:v1 --no-cache
 echo "${highlight}---------------------------------------------${NC}"
 date
 echo pushing docker image...
 echo "${highlight}---------------------------------------------${NC}"
 
-docker push 10.11.111.4:5000/blog:v1
+docker push 11.11.111.1:5000/blog:v1
 echo "${highlight}---------------------------------------------${NC}"
 date
 echo sync to github
