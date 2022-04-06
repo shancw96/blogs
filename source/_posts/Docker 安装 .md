@@ -226,7 +226,7 @@ RUN echo '<h1>Hello, Docker!</h1>' > /usr/share/nginx/html/index.html
 
   ```bash
   FROM debian:stretch
-  
+
   RUN apt-get update
   RUN apt-get install -y gcc libc6-dev make wget
   RUN wget -O redis.tar.gz "http://download.redis.io/releases/redis-5.0.3.tar.gz"
@@ -347,16 +347,16 @@ hello world
 - docker container start [contaienr ID] 恢复
 - docker container restart [container ID] 重启
 
-### 机器重启，docker容器恢复策略
+### 机器重启，docker 容器恢复策略
 
 `--restart`
 
-| flag           | 描述                                                         |
-| -------------- | ------------------------------------------------------------ |
-| no             | 不重启容器 （默认值）                                        |
-| on-failure     | 如果容器因为错误崩溃退出，那么重启                           |
-| always         | 当容器停止时候，总是重启。如果是被手动停止，那么只有在Docker 守护进程重启的时候才会自动重启。 |
-| unless-stopped | 和always类似，如果被手动停止，即使是Docker 守护进程重启，也不会被重启 |
+| flag           | 描述                                                                                           |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| no             | 不重启容器 （默认值）                                                                          |
+| on-failure     | 如果容器因为错误崩溃退出，那么重启                                                             |
+| always         | 当容器停止时候，总是重启。如果是被手动停止，那么只有在 Docker 守护进程重启的时候才会自动重启。 |
+| unless-stopped | 和 always 类似，如果被手动停止，即使是 Docker 守护进程重启，也不会被重启                       |
 
 ```bash
 docker run -d --restart unless-stopped redis
@@ -467,17 +467,17 @@ REPOSITORY                        TAG                 IMAGE ID            CREATE
 ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
 ```
 
-2.   docker tag 进行标记
+2.  docker tag 进行标记
 
-   格式:`docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]`
+格式:`docker tag IMAGE[:TAG] [REGISTRY_HOST[:REGISTRY_PORT]/]REPOSITORY[:TAG]`
 
-   ```bash
-   $ docker tag ubuntu:latest 127.0.0.1:5000/ubuntu:latest
-   $ docker image ls
-   REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-   ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
-   127.0.0.1:5000/ubuntu:latest      latest              ba5877dc9bec        6 weeks ago         192.7 MB
-   ```
+```bash
+$ docker tag ubuntu:latest 127.0.0.1:5000/ubuntu:latest
+$ docker image ls
+REPOSITORY                        TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+ubuntu                            latest              ba5877dc9bec        6 weeks ago         192.7 MB
+127.0.0.1:5000/ubuntu:latest      latest              ba5877dc9bec        6 weeks ago         192.7 MB
+```
 
 3. docker push 上传标记的镜像
 
@@ -516,4 +516,30 @@ ubuntu                            latest              ba5877dc9bec        6 week
 // 服务重启
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
+```
+
+# 修改 Docker 镜像默认存储位置 - 软链接
+
+默认情况下 Docker 容器的存放位置在 /var/lib/docker 目录下面，可以通过下面命令查看具体位置。
+
+```bash
+# 默认存放位置
+sudo docker info | grep "Docker Root Dir"
+```
+
+```bash
+# 停掉Docker服务
+service docker stop
+# 重启Docker服务
+systemctl restart docker
+```
+
+移动整个 /var/lib/docker 目录到空间不较大的目的路径。这时候启动 Docker 时发现存储目录依旧是 /var/lib/docker 目录，但是实际上是存储在数据盘 /data/docker 上了。
+
+```bash
+# 移动原有的内容
+mv /var/lib/docker /data/docker
+
+# 进行链接
+ln -sf /data/docker /var/lib/docker
 ```
