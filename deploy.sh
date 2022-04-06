@@ -94,20 +94,20 @@ echo "${highlight}---------------------------------------------${NC}"
 #       - /dev/dri:/dev/dri # VAAPI/NVDEC/NVENC render nodes
 #       - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
 #     restart: unless-stopped
-version: "3"
-services:
-  chinesesubfinder:
-    image: allanpk716/chinesesubfinder:latest
-    volumes:
-      - /home/shancw/data/chinesesubfinder/SubFixCache:/app/cache
-      - /home/shancw/data/chinesesubfinder:/config
+# version: "3"
+# services:
+#   chinesesubfinder:
+#     image: allanpk716/chinesesubfinder:latest
+#     volumes:
+#       - /home/shancw/data/chinesesubfinder/SubFixCache:/app/cache
+#       - /home/shancw/data/chinesesubfinder:/config
 
-      - /home/shancw/data/media:/media
-    ports:
-      - "19035:19035"
-    environment:
-      - PUID=1026
-      - PGID=100
-      - TZ=Asia/Shanghai
-    restart: unless-stopped
+#       - /home/shancw/data/media:/media
+#     ports:
+#       - "19035:19035"
+#     environment:
+#       - PUID=1026
+#       - PGID=100
+#       - TZ=Asia/Shanghai
+#     restart: unless-stopped
 #   export https_proxy=http://192.168.5.233:7890 http_proxy=http://192.168.5.233:7890 all_proxy=socks5://192.168.5.233:7890
