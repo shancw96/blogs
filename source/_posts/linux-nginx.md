@@ -1,5 +1,5 @@
 ---
-title: nginx 安装与简单使用
+title: nginx 使用手册
 categories: [运维]
 tags: [nginx]
 toc: true
@@ -144,5 +144,33 @@ server {
     location ~* live2dw.* {
       add_header    Cache-Control  "max-age=31536000, public";
     }
+}
+```
+
+## resolver 解决 Nginx DNS 缓存导致转发失败
+
+```bash
+Syntax:	resolver address ... [valid=time] [ipv6=on|off] [status_zone=zone];
+Default:	—
+Context:	http, server, location
+```
+
+买了阿里云作为中转，利用 Ngnix 作 TCP Proxy 结合 DDNS，可以实现域名直接访问家庭服务。由于 Nginx 转发会缓存 DNS 解析，但电信家庭宽带的公网 ip 是不固定的，导致转发失败。
+
+原因：
+
+- Nginx 在启动/重载的时候会去解析转发的域名
+- 如果域名无法解析 Nginx 就无法启动
+- 只有下次重启/重载的时候才会重新去解析，启动后无视 TTL
+
+解决方法：
+指定 DNS 解析服务器并设置 DNS 刷新频率。
+
+```bash
+http {
+  resolver 8.8.8.8 valid=1m;
+  server{
+    ...
+  }
 }
 ```
