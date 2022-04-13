@@ -24,17 +24,17 @@ docker push 11.11.111.1:5000/blog:v1
 echo "${highlight}---------------------------------------------${NC}"
 ssh shancw@serial.limiaomiao.site -p 11122 "sh /home/shancw/project/blog.sh"
 
-date
-echo sync to github
-echo setting http proxy to http://127.0.0.1:7890
-export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
-echo "${highlight}---------------------------------------------${NC}"
-time=$(date "+%Y-%m-%d %H:%M:%S")
-echo ">>> please input your commit message !"
-read message
-git add .
-git commit -m "${message}"
-echo "${highlight}---------------------------------------------${NC}"
+# date
+# echo sync to github
+# echo setting http proxy to http://127.0.0.1:7890
+# export https_proxy=http://127.0.0.1:7890 http_proxy=http://127.0.0.1:7890 all_proxy=socks5://127.0.0.1:7890
+# echo "${highlight}---------------------------------------------${NC}"
+# time=$(date "+%Y-%m-%d %H:%M:%S")
+# echo ">>> please input your commit message !"
+# read message
+# git add .
+# git commit -m "${message}"
+# echo "${highlight}---------------------------------------------${NC}"
 
 
 # docker create \
@@ -94,20 +94,20 @@ echo "${highlight}---------------------------------------------${NC}"
 #       - /dev/dri:/dev/dri # VAAPI/NVDEC/NVENC render nodes
 #       - /dev/vchiq:/dev/vchiq # MMAL/OMX on Raspberry Pi
 #     restart: unless-stopped
-version: "3"
-services:
-  chinesesubfinder:
-    image: allanpk716/chinesesubfinder:latest
-    volumes:
-      - /home/shancw/data/chinesesubfinder/SubFixCache:/app/cache
-      - /home/shancw/data/chinesesubfinder:/config
+# version: "3"
+# services:
+#   chinesesubfinder:
+#     image: allanpk716/chinesesubfinder:latest
+#     volumes:
+#       - /home/shancw/data/chinesesubfinder/SubFixCache:/app/cache
+#       - /home/shancw/data/chinesesubfinder:/config
 
-      - /home/shancw/data/media:/media
-    ports:
-      - "19035:19035"
-    environment:
-      - PUID=1026
-      - PGID=100
-      - TZ=Asia/Shanghai
-    restart: unless-stopped
+#       - /home/shancw/data/media:/media
+#     ports:
+#       - "19035:19035"
+#     environment:
+#       - PUID=1026
+#       - PGID=100
+#       - TZ=Asia/Shanghai
+#     restart: unless-stopped
 #   export https_proxy=http://192.168.5.233:7890 http_proxy=http://192.168.5.233:7890 all_proxy=socks5://192.168.5.233:7890
