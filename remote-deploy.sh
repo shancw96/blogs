@@ -1,1 +1,1 @@
-ssh shancw@serial.limiaomiao.site -p 11122 "sh /home/shancw/project/blogs/depoly.sh"
+ssh shancw@serial.limiaomiao.site -p 11122 "sh /home/shancw/project/blogs/deploy.sh"
