@@ -1,1 +1,1 @@
-ssh shancw@serial.limiaomiao.site -p 11122 "sh /home/shancw/project/blogs/deploy.sh"
+ssh -t shancw@serial.limiaomiao.site -p 11122 "sh /home/shancw/project/blogs/remote-deploy.sh"
