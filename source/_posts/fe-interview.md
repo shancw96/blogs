@@ -51,6 +51,67 @@ string, number, boolean, **null**，**undefined**， **symbol**
 
 - 属于，从 Object 基类派生而来
 
+### 什么是原型
+
+#### .prototype 属性
+
+每个函数都会创建一个prototype属性，这个属性是一个对象。定义在它上面的属性或者方法可以被共享。比如：
+
+```js
+function Person() {} // 自动创建Person.prototype属性
+Person.prototype.color = 'yellow';
+Person.prototype.food = 'rice';
+const shancw = new Person();
+shancw.color === 'yellow' // -> true
+```
+
++ 我们创建Person构造函数，他自动创建prototype属性。
+
++ 我们对Person的prototype增加一些属性，它的实例shancw可以获取到prototype的共享。因此shancw.color === 'yellow'
+
+  > 为什么shancw实例能够获取到prototype原型对象？背后是怎么工作的？
+  >
+  > 参考文章：[理清`constructor`，`【【prototype】】`, `prototype` 之间的区别](https://blog.shancw.net/2021/01/13/js-prototype-constructor/)
+  >
+  > `[[Get]]`
+  >
+  > 当获取对象的某个属性，比如 obj.a 会触发`[[Get]]`操作。对于默认情况下的 `[[Get]]`(没有被 Proxy 代理)会进行如下步骤：
+  >
+  > - 检查对象本身是否有这个属性，如果有就使用
+  >
+  > - 如果 a 不再 obj 中，那么就会检查 obj 的 [[prototype]]
+  >
+  >   上是否存在 a 属性
+  >
+  >   - 如果存在则返回
+  >   - 不存在,继续检查 obj 的`[[Prototype]]`的`[[Prototype]]`,递归执行
+  >
+  > - `[[Prototype]]`的尽头是 `Object.prototype`，如果还是没有找到则会返回 undefined，值得一提的是，很多全局的方法就是通过这种方式获取的，如 `valueOf, toString, hasOwnProperty`
+
+此时如果我们对Person的prototype进行修改，shancw.color 也会实时发生变化，因此不能将js构造函数的new 实例和java中class生成的实例相提并论
+
+```js
+function Person() {} // 自动创建Person.prototype属性
+Person.prototype.color = 'yellow';
+Person.prototype.food = 'rice';
+const shancw = new Person();
+shancw.color === 'yellow' // -> true
+Person.prototype.color = 'black'
+shancw.color === 'black' // -> true
+```
+
+默认情况下，.prototype 原型对象会自动获得constructor，指向构造函数。如上述例子，Person.prototype.constructor === Person。
+
+![image-20220420193933397](http://serial.limiaomiao.site:8089/public/uploads/image-20220420193933397.png)
+
+#### [[prototype]] 属性
+
+每次调用构造函数创建一个新的实例，这个实例内部的[[prototype]]指针就会被赋值给构造函数的原型对象。这个属性是内置属性，外部无法获取。但是Firefox,Safari,Chrome 会在每个对象上暴露 `__proto__`，通过这个属性，可以访问到对象的原型
+
+![image-20220420200850513](/Users/wushangcheng/Pictures/Typora/image-20220420200850513.png)
+
+
+
 ### 执行上下文和作用域
 
 > 执行上下文，后续简称为上下文
@@ -147,7 +208,43 @@ const closure = A(); // 带着特定作用域链的函数B
 - 红宝书 - 第三章
 - [Understanding Execution Context and Execution Stack in Javascript](https://blog.bitsrc.io/understanding-execution-context-and-execution-stack-in-javascript-1c9ea8642dd0)
 
-## 【基础】Promise 相关
+### 什么是代理和反射
+
+ECMAScript 6 新增的代理和反射为开发者提供了拦截并向基本操作嵌入额外行为的能力。
+
+#### proxy
+
+```js
+const handler = {
+  get(trapTarget, property, receiver) {
+    console.log(trapTarget === target)
+    console.log(property)
+    console.log(receiver === proxy)
+    return trapTarget[property]
+  }
+}
+const proxy = new Proxy(target, handler);
+```
+
+#### Reflect
+
+所有捕获器都可以基于自己的参数重建原始操作, 但并非所有捕获器行为都像 get()那么简单,因此，通过手写代码入法炮制不现实。全局Reflect 对象就是用来解决这个痛病，上述handler通过Reflect实现如下
+
+```js
+const proxy = new Proxy(target, {
+  get: Reflect.get
+})
+```
+
+如果我们只是想要创建一个可以捕获所有方法的空代理，通过Reflect，也可以轻松实现
+
+```js
+const proxy = new Proxy(target, Reflect);
+```
+
+
+
+### 【基础】Promise 相关
 
 - Promise 是什么，用来解决什么问题
 
