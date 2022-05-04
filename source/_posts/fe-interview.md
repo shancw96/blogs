@@ -242,6 +242,120 @@ const proxy = new Proxy(target, {
 const proxy = new Proxy(target, Reflect);
 ```
 
+### Iteration & Generation
+
+#### 请介绍下Generator函数
+
+Generator 函数可以在内部暂停和恢复代码的执行
+
+##### 声明方式
+
+```js
+function* generator() {}
+const generator = function* () {}
+let foo = {
+  * generator() {}
+}
+class Foo {
+  * generator() {}
+  static * genrator2() {}
+}
+```
+
+##### 生成器对象
+
+调用生成器函数，会生成一个**生成器对象**。生成器对象一开始处于暂停执行状态（suspended)。生成器对象实现了Iterator 接口，因此具有next方法。
+
+```js
+function* generatorExample() {}
+
+const generatorObj = generatorExample(); // generatorFn(<suspended>)
+console.log(generatorObj.next) // f next() {}
+```
+
++ next
+
+  迭代器 API 使用 next()方法在可迭代对象中遍历数据。每次成功调用 next(),都会返回一个 IteratorResult 对象,其中包含迭代器返回的下一个值。若不调用 next(),则无法知道迭代器的当前位置
+
+  + IteratorResult 对象
+
+    此对象包括两个属性：done 和 value
+
+    + done：boolean值，表示是否还可以再次调用next
+    + value：可迭代对象的下一个值
+
++ 函数体为空的生成器函数中间不会停留,调用一次 next()就会让生成器到达 done: true 状态
+
+##### yield 中断执行
+
+通过 return 关键字退出的生成器函数会处于 done: true 状态。
+
+```js
+function* generator() {
+	yield 'foo';
+  yield 'bar';
+  return 'baz';
+}
+
+const generatorObj = generator();
+generatorObj.next();// {done: false, value: 'foo'}
+geneatorObj.next(); // {done: false, value: 'bar'}
+generatorObj.enxt();// {ddone: true, value: 'baz'}
+```
+
+生成器函数内部的执行流程会针对每个生成器对象区分作用域。在一个生成器对象上调用 next() 不会影响其他生成器
+
+```js
+function* generator() {
+	yield 'foo';
+  yield 'bar';
+  return 'baz';
+}
+
+const generatorObj = generator();
+const generatorObj2 = generator();
+generatorObj.next();// {done: false, value: 'foo'}
+geneatorObj2.next(); // {done: false, value: 'foo'}
+```
+
+```js
+function *foo(x) {
+  let y = 2 * (yield (x + 1))
+  let z = yield (y / 3)
+  return (x + y + z)
+}
+let it = foo(5)
+// 
+
+console.log(it.next())  // -> x =5, 5 +1 = 6 
+console.log(it.next(12))  // -> input 12， y = 12,  12*2/3 = 8
+console.log(it.next(13)) // -> input 13, z = 13, x+y+z = 13 + 8 +6
+// 错误
+console.log(it.next())  // -> 12 
+console.log(it.next(12))  // -> 4
+console.log(it.next(13)) // -> 5 + 12 + 4
+
+```
+
+- 首先 `Generator` 函数调用和普通函数不同，它会返回一个迭代器
+- 当执行第一次 `next` 时，传参会被忽略，并且函数暂停在 `yield (x + 1)` 处，所以返回 `5 + 1 = 6`
+- 当执行第二次 `next` 时，传入的参数等于上一个 `yield` 的返回值，如果你不传参，`yield` 永远返回 `undefined`。此时 `let y = 2 * 12`，所以第二个 `yield` 等于 `2 * 12 / 3 = 8`
+- 当执行第三次 `next` 时，传入的参数会传递给 `z`，所以 `z = 13, x = 5, y = 24`，相加等于 `42`
+
+generator 实现 async await 效果
+
+```js
+function *fetch() {
+    yield ajax(url, () => {})
+    yield ajax(url1, () => {})
+    yield ajax(url2, () => {})
+}
+let it = fetch()
+let result1 = it.next()
+let result2 = it.next()
+let result3 = it.next()
+```
+
 
 
 ### 【基础】Promise 相关
