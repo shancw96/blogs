@@ -74,3 +74,137 @@ function move(animal: Fish | Bird) {
   return animal.fly();
 }
 ```
+
+### [implement Readonly](https://github.com/type-challenges/type-challenges/blob/main/questions/00007-easy-readonly/README.md)
+
+Implement the built-in `Readonly<T>` generic without using it.
+
+Constructs a type with all properties of T set to readonly, meaning the properties of the constructed type cannot be reassigned.
+
+For example
+
+```typescript
+interface Todo {
+  title: string
+  description: string
+}
+
+const todo: MyReadonly<Todo> = {
+  title: "Hey",
+  description: "foobar"
+}
+
+todo.title = "Hello" // Error: cannot reassign a readonly property
+todo.description = "barFoo" // Error: cannot reassign a readonly property
+```
+
+#### 涉及到的知识点：
+
+##### readonly
+
+只读，会将iterable 对象的所有key设置为只读
+
+```typescript
+type MyReadOnly<T> = {
+  readonly [key in keyof T]: T[key]
+}
+```
+
+
+
+### Tuple to Object
+
+Give an array, transform into an object type and the key/value must in the given array.
+
+For example
+
+```typescript
+const tuple = ['tesla', 'model 3', 'model X', 'model Y'] as const
+
+type result = TupleToObject<typeof tuple> // expected { tesla: 'tesla', 'model 3': 'model 3', 'model X': 'model X', 'model Y': 'model Y'}
+```
+
+
+
+answer:
+
+```typescript
+type TupleToObject<T extends string[]> = {
+  [valye in T[number]]: value
+}
+```
+
+知识点：
+
+
+
+##### [Indexed Access Types](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html)
+
+```typescript
+type Person = { age: number; name: string; alive: boolean };
+
+type Age = Person["age"]; //-> type Age = number
+```
+
+##### Mapped Types
+
+ using `number` to get the type of an array’s elements
+
+![image-20220504223237103](https://blog.shancw.net/public/uploads/image-20220504223237103.png)
+
+##### [typeof](https://www.typescriptlang.org/docs/handbook/2/typeof-types.html#handbook-content)
+
+TypeScript adds a `typeof` operator you can use in a *type* context to refer to the *type* of a variable or property:
+
+
+
+
+
+### First Of Array
+
+Implement a generic `First<T>` that takes an Array `T` and returns it's first element's type.
+
+For example
+
+```typescript
+type arr1 = ['a', 'b', 'c']
+type arr2 = [3, 2, 1]
+
+type head1 = First<arr1> // expected to be 'a'
+type head2 = First<arr2> // expected to be 3
+```
+
+answer：
+
+```typescript
+type First<T extends unknown[]> = T['length'] extends 0 ? T[0] : never
+```
+
+
+
+#### 知识点
+
++ [Conditional Type Constraints](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#conditional-type-constraints)
+
+  `First<T extends unknown[]> = T['length']` 对于这块内容, T extends unknown[] 限制了 T的范围是数组，因此可以通过[indexed Access Types](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html) 来获取 T['length']
+
+  `T extends something ? TypeA : TypeB` 就是条件类型约束的写法
+
++ [unkown any 区别](https://stackoverflow.com/questions/51439843/unknown-vs-any/51439876#51439876)
+
+  unkown 是 type-safe 的 any，任何类型都可以声明为unknown，但如果在使用之前没有做任何类型指定，那么针对unknown的任何操作都会抛出错误
+
+  ```typescript
+  let vAny: any = 10;          // We can assign anything to any
+  let vUnknown: unknown =  10; // We can assign anything to unknown just like any 
+  
+  
+  let s1: string = vAny;     // Any is assignable to anything 
+  let s2: string = vUnknown; // Invalid; we can't assign vUnknown to any other type (without an explicit assertion)
+  
+  vAny.method();     // Ok; anything goes with any
+  vUnknown.method(); // Not ok; we don't know anything about this variable
+  ```
+
+  
+

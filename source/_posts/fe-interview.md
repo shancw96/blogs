@@ -9,6 +9,31 @@ top: 1
 
 上次更新时间：2022/4/13
 
+# 资源
+
+## 算法
+
+- [Fucking Algorithm](https://github.com/labuladong/fucking-algorithm) 105k star
+
+## 基础
+
+- [千古前端](https://web.qianguyihao.com/)
+
+  19.2k star，注重基础知识点
+
+- [hit-alibaba](https://hit-alibaba.github.io/interview/basic/) 4.9k star
+
+  计算机网络了解个大概
+
+## 框架学习
+
+- [【vue-family-mindmap】 vue2 的 源码思维导图](https://github.com/biaochenxuying/vue-family-mindmap)
+
+## 前端面试
+
+- [【推荐】yck：前端面试之道](https://juejin.cn/book/6844733763675488269?scrollMenuIndex=1) 17.5k star
+- [木易杨前端进阶](https://muyiy.cn/question/)
+
 <!-- more -->
 
 ## JS
@@ -55,21 +80,21 @@ string, number, boolean, **null**，**undefined**， **symbol**
 
 #### .prototype 属性
 
-每个函数都会创建一个prototype属性，这个属性是一个对象。定义在它上面的属性或者方法可以被共享。比如：
+每个函数都会创建一个 prototype 属性，这个属性是一个对象。定义在它上面的属性或者方法可以被共享。比如：
 
 ```js
 function Person() {} // 自动创建Person.prototype属性
-Person.prototype.color = 'yellow';
-Person.prototype.food = 'rice';
+Person.prototype.color = "yellow";
+Person.prototype.food = "rice";
 const shancw = new Person();
-shancw.color === 'yellow' // -> true
+shancw.color === "yellow"; // -> true
 ```
 
-+ 我们创建Person构造函数，他自动创建prototype属性。
+- 我们创建 Person 构造函数，他自动创建 prototype 属性。
 
-+ 我们对Person的prototype增加一些属性，它的实例shancw可以获取到prototype的共享。因此shancw.color === 'yellow'
+- 我们对 Person 的 prototype 增加一些属性，它的实例 shancw 可以获取到 prototype 的共享。因此 shancw.color === 'yellow'
 
-  > 为什么shancw实例能够获取到prototype原型对象？背后是怎么工作的？
+  > 为什么 shancw 实例能够获取到 prototype 原型对象？背后是怎么工作的？
   >
   > 参考文章：[理清`constructor`，`【【prototype】】`, `prototype` 之间的区别](https://blog.shancw.net/2021/01/13/js-prototype-constructor/)
   >
@@ -88,29 +113,27 @@ shancw.color === 'yellow' // -> true
   >
   > - `[[Prototype]]`的尽头是 `Object.prototype`，如果还是没有找到则会返回 undefined，值得一提的是，很多全局的方法就是通过这种方式获取的，如 `valueOf, toString, hasOwnProperty`
 
-此时如果我们对Person的prototype进行修改，shancw.color 也会实时发生变化，因此不能将js构造函数的new 实例和java中class生成的实例相提并论
+此时如果我们对 Person 的 prototype 进行修改，shancw.color 也会实时发生变化，因此不能将 js 构造函数的 new 实例和 java 中 class 生成的实例相提并论
 
 ```js
 function Person() {} // 自动创建Person.prototype属性
-Person.prototype.color = 'yellow';
-Person.prototype.food = 'rice';
+Person.prototype.color = "yellow";
+Person.prototype.food = "rice";
 const shancw = new Person();
-shancw.color === 'yellow' // -> true
-Person.prototype.color = 'black'
-shancw.color === 'black' // -> true
+shancw.color === "yellow"; // -> true
+Person.prototype.color = "black";
+shancw.color === "black"; // -> true
 ```
 
-默认情况下，.prototype 原型对象会自动获得constructor，指向构造函数。如上述例子，Person.prototype.constructor === Person。
+默认情况下，.prototype 原型对象会自动获得 constructor，指向构造函数。如上述例子，Person.prototype.constructor === Person。
 
 <img src="https://blog.shancw.net/public/uploads/image-20220420193933397.png" alt="image-20220420193933397"  />
 
 #### [[prototype]] 属性
 
-每次调用构造函数创建一个新的实例，这个实例内部的[[prototype]]指针就会被赋值给构造函数的原型对象。这个属性是内置属性，外部无法获取。但是Firefox,Safari,Chrome 会在每个对象上暴露 `__proto__`，通过这个属性，可以访问到对象的原型
+每次调用构造函数创建一个新的实例，这个实例内部的[[prototype]]指针就会被赋值给构造函数的原型对象。这个属性是内置属性，外部无法获取。但是 Firefox,Safari,Chrome 会在每个对象上暴露 `__proto__`，通过这个属性，可以访问到对象的原型
 
 ![image-20220420200850513](https://blog.shancw.net/public/uploads/image-20220420200850513.png)
-
-
 
 ### 执行上下文和作用域
 
@@ -217,26 +240,26 @@ ECMAScript 6 新增的代理和反射为开发者提供了拦截并向基本操�
 ```js
 const handler = {
   get(trapTarget, property, receiver) {
-    console.log(trapTarget === target)
-    console.log(property)
-    console.log(receiver === proxy)
-    return trapTarget[property]
-  }
-}
+    console.log(trapTarget === target);
+    console.log(property);
+    console.log(receiver === proxy);
+    return trapTarget[property];
+  },
+};
 const proxy = new Proxy(target, handler);
 ```
 
 #### Reflect
 
-所有捕获器都可以基于自己的参数重建原始操作, 但并非所有捕获器行为都像 get()那么简单,因此，通过手写代码入法炮制不现实。全局Reflect 对象就是用来解决这个痛病，上述handler通过Reflect实现如下
+所有捕获器都可以基于自己的参数重建原始操作, 但并非所有捕获器行为都像 get()那么简单,因此，通过手写代码入法炮制不现实。全局 Reflect 对象就是用来解决这个痛病，上述 handler 通过 Reflect 实现如下
 
 ```js
 const proxy = new Proxy(target, {
-  get: Reflect.get
-})
+  get: Reflect.get,
+});
 ```
 
-如果我们只是想要创建一个可以捕获所有方法的空代理，通过Reflect，也可以轻松实现
+如果我们只是想要创建一个可以捕获所有方法的空代理，通过 Reflect，也可以轻松实现
 
 ```js
 const proxy = new Proxy(target, Reflect);
@@ -244,7 +267,7 @@ const proxy = new Proxy(target, Reflect);
 
 ### Iteration & Generation
 
-#### 请介绍下Generator函数
+#### 请介绍下 Generator 函数
 
 Generator 函数可以在内部暂停和恢复代码的执行
 
@@ -252,39 +275,39 @@ Generator 函数可以在内部暂停和恢复代码的执行
 
 ```js
 function* generator() {}
-const generator = function* () {}
+const generator = function* () {};
 let foo = {
-  * generator() {}
-}
+  *generator() {},
+};
 class Foo {
-  * generator() {}
-  static * genrator2() {}
+  *generator() {}
+  static *genrator2() {}
 }
 ```
 
 ##### 生成器对象
 
-调用生成器函数，会生成一个**生成器对象**。生成器对象一开始处于暂停执行状态（suspended)。生成器对象实现了Iterator 接口，因此具有next方法。
+调用生成器函数，会生成一个**生成器对象**。生成器对象一开始处于暂停执行状态（suspended)。生成器对象实现了 Iterator 接口，因此具有 next 方法。
 
 ```js
 function* generatorExample() {}
 
 const generatorObj = generatorExample(); // generatorFn(<suspended>)
-console.log(generatorObj.next) // f next() {}
+console.log(generatorObj.next); // f next() {}
 ```
 
-+ next
+- next
 
   迭代器 API 使用 next()方法在可迭代对象中遍历数据。每次成功调用 next(),都会返回一个 IteratorResult 对象,其中包含迭代器返回的下一个值。若不调用 next(),则无法知道迭代器的当前位置
 
-  + IteratorResult 对象
+  - IteratorResult 对象
 
     此对象包括两个属性：done 和 value
 
-    + done：boolean值，表示是否还可以再次调用next
-    + value：可迭代对象的下一个值
+    - done：boolean 值，表示是否还可以再次调用 next
+    - value：可迭代对象的下一个值
 
-+ 函数体为空的生成器函数中间不会停留,调用一次 next()就会让生成器到达 done: true 状态
+- 函数体为空的生成器函数中间不会停留,调用一次 next()就会让生成器到达 done: true 状态
 
 ##### yield 中断执行
 
@@ -292,49 +315,48 @@ console.log(generatorObj.next) // f next() {}
 
 ```js
 function* generator() {
-	yield 'foo';
-  yield 'bar';
-  return 'baz';
+  yield "foo";
+  yield "bar";
+  return "baz";
 }
 
 const generatorObj = generator();
-generatorObj.next();// {done: false, value: 'foo'}
+generatorObj.next(); // {done: false, value: 'foo'}
 geneatorObj.next(); // {done: false, value: 'bar'}
-generatorObj.enxt();// {ddone: true, value: 'baz'}
+generatorObj.enxt(); // {ddone: true, value: 'baz'}
 ```
 
 生成器函数内部的执行流程会针对每个生成器对象区分作用域。在一个生成器对象上调用 next() 不会影响其他生成器
 
 ```js
 function* generator() {
-	yield 'foo';
-  yield 'bar';
-  return 'baz';
+  yield "foo";
+  yield "bar";
+  return "baz";
 }
 
 const generatorObj = generator();
 const generatorObj2 = generator();
-generatorObj.next();// {done: false, value: 'foo'}
+generatorObj.next(); // {done: false, value: 'foo'}
 geneatorObj2.next(); // {done: false, value: 'foo'}
 ```
 
 ```js
-function *foo(x) {
-  let y = 2 * (yield (x + 1))
-  let z = yield (y / 3)
-  return (x + y + z)
+function* foo(x) {
+  let y = 2 * (yield x + 1);
+  let z = yield y / 3;
+  return x + y + z;
 }
-let it = foo(5)
-// 
+let it = foo(5);
+//
 
-console.log(it.next())  // -> x =5, 5 +1 = 6 
-console.log(it.next(12))  // -> input 12， y = 12,  12*2/3 = 8
-console.log(it.next(13)) // -> input 13, z = 13, x+y+z = 13 + 8 +6
+console.log(it.next()); // -> x =5, 5 +1 = 6
+console.log(it.next(12)); // -> input 12， y = 12,  12*2/3 = 8
+console.log(it.next(13)); // -> input 13, z = 13, x+y+z = 13 + 8 +6
 // 错误
-console.log(it.next())  // -> 12 
-console.log(it.next(12))  // -> 4
-console.log(it.next(13)) // -> 5 + 12 + 4
-
+console.log(it.next()); // -> 12
+console.log(it.next(12)); // -> 4
+console.log(it.next(13)); // -> 5 + 12 + 4
 ```
 
 - 首先 `Generator` 函数调用和普通函数不同，它会返回一个迭代器
@@ -345,18 +367,16 @@ console.log(it.next(13)) // -> 5 + 12 + 4
 generator 实现 async await 效果
 
 ```js
-function *fetch() {
-    yield ajax(url, () => {})
-    yield ajax(url1, () => {})
-    yield ajax(url2, () => {})
+function* fetch() {
+  yield ajax(url, () => {});
+  yield ajax(url1, () => {});
+  yield ajax(url2, () => {});
 }
-let it = fetch()
-let result1 = it.next()
-let result2 = it.next()
-let result3 = it.next()
+let it = fetch();
+let result1 = it.next();
+let result2 = it.next();
+let result3 = it.next();
 ```
-
-
 
 ### 【基础】Promise 相关
 
