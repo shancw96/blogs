@@ -22,4 +22,4 @@ echo "${highlight}---------------------------------------------${NC}"
 
 docker push 11.12.123.2:5000/blog:v1
 echo "${highlight}---------------------------------------------${NC}"
-ssh shancw@serial.limiaomiao.site -p 11122 "sh /home/shancw/project/blog.sh"
+ssh shancw@11.12.123.2 "sh /home/shancw/project/blog.sh"
