@@ -6,7 +6,7 @@ toc: true
 date: 2022/5/3
 ---
 
-Typescript 类型体操，每日一题，重学 TS
+Typescript 类型体操，重学 TS
 
 <!-- more -->
 
@@ -267,4 +267,73 @@ type error = MyAwaited<number>
   ```
 
 + [use infer in Typescript](https://blog.logrocket.com/understanding-infer-typescript/#:~:text=Using%20infer%20in%20TypeScript,to%20be%20referenced%20or%20returned.)
+
+### [Implement Concat](https://github.com/type-challenges/type-challenges/blob/main/questions/00533-easy-concat/README.md)
+
+Implement the JavaScript `Array.concat` function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order
+
+For example
+
+```typescript
+type Result = Concat<[1], [2]> // expected to be [1, 2]
+```
+
+```typescript
+/* _____________ Your Code Here _____________ */
+
+type Concat<T extends unknown[], U extends unknown[]> = [...T, ...U]
+
+/* _____________ Test Cases _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<Concat<[], []>, []>>,
+  Expect<Equal<Concat<[], [1]>, [1]>>,
+  Expect<Equal<Concat<[1, 2], [3, 4]>, [1, 2, 3, 4]>>,
+  Expect<Equal<Concat<['1', 2, '3'], [false, boolean, '4']>, ['1', 2, '3', false, boolean, '4']>>,
+]
+
+```
+
+#### 知识点
+
++ [可变tuple 类型](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types)
+
+  ts 4.0 往后支持 范型的解构赋值
+
+## 非ts challenge 库内容
+
++ [将enum 作为 对象的key](https://stackoverflow.com/questions/44243060/use-enum-as-restricted-key-type-in-typescript)
+
+  key从如下enum获取
+
+  ```typescript
+  export enum ProgressOutlookType {
+    //图片
+    PICTURE = 'PICTURE',
+    //视频
+    VIDEO='VIDEO',
+    //720云
+    CLOUD_720='CLOUD_720',
+  }
+  ```
+
+  value需要设置为 `ProgressOutlookSaveDTO`
+
+  + [Version1: keyof + typeof](https://stackoverflow.com/a/59213781/11418690)
+
+    ```typescript
+    [key in keyof typeof ProgressOutlookType]: FormProps<ProgressOutlookSaveDTO>
+    ```
+
+    + keyof: https://www.typescriptlang.org/docs/handbook/2/keyof-types.html#handbook-content
+    + typeof: https://www.typescriptlang.org/docs/handbook/2/typeof-types.html#handbook-content
+
+  + [Version2: UtilType Record](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)
+
+    ```typescript
+    Record<ProgressOutlookType, FormProps<ProgressOutlookSaveDTO>>
+    ```
+
+    
 
